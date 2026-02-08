@@ -1,5 +1,5 @@
 /**
- * 背景状态管理
+ * 背景 + 蒙版 状态管理
  * @author buchi
  * @since 2026-02-08
  */
@@ -39,16 +39,40 @@ export const bgOptions: BgOption[] = [
   { id: 'pure-white', label: '纯白', icon: '⚪', category: 'solid' },
 ]
 
-const currentBg = ref('liquid')
+export type VeilIntensity = 'subtle' | 'medium' | 'strong'
+
+// 全局单例状态
+const currentBg = ref('neon')
+const veilEnabled = ref(true)
+const veilIntensity = ref<VeilIntensity>('medium')
+const veilParticles = ref(true)
 
 export function useBackground() {
   const setBg = (id: string) => {
     currentBg.value = id
   }
 
+  const toggleVeil = () => {
+    veilEnabled.value = !veilEnabled.value
+  }
+
+  const setVeilIntensity = (val: VeilIntensity) => {
+    veilIntensity.value = val
+  }
+
+  const toggleVeilParticles = () => {
+    veilParticles.value = !veilParticles.value
+  }
+
   return {
     currentBg,
     bgOptions,
     setBg,
+    veilEnabled,
+    veilIntensity,
+    veilParticles,
+    toggleVeil,
+    setVeilIntensity,
+    toggleVeilParticles,
   }
 }

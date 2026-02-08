@@ -1,5 +1,5 @@
 <template>
-  <div :class="['d-glass-divider', `d-glass-divider--${direction}`, `d-glass-divider--${variant}`]">
+  <div :class="['d-glass-divider', `d-glass-divider--${direction}`, `d-glass-divider--${variant}`]" :style="glassVars">
     <span v-if="$slots.default" class="d-glass-divider__text">
       <slot />
     </span>
@@ -12,17 +12,21 @@
  * @author buchi
  * @since 2026-02-08
  */
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+
 defineOptions({ name: 'DGlassDivider' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   direction?: 'horizontal' | 'vertical'
   variant?: 'default' | 'light' | 'glow'
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   direction: 'horizontal',
   variant: 'default',
 })
+
+const { glassVars } = useGlassStyle(props)
 </script>
 
 <style scoped lang="scss">

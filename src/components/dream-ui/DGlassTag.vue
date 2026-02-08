@@ -2,6 +2,7 @@
   <span
     v-if="visible"
     :class="['d-glass-tag', `d-glass-tag--${variant}`, `d-glass-tag--${size}`]"
+    :style="glassVars"
   >
     <slot />
     <button v-if="closable" class="d-glass-tag__close" @click="onClose">✕</button>
@@ -15,20 +16,23 @@
  * @since 2026-02-08
  */
 import { ref } from 'vue'
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
 
 defineOptions({ name: 'DGlassTag' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   variant?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info'
   size?: 'sm' | 'md' | 'lg'
   closable?: boolean
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   variant: 'default',
   size: 'md',
   closable: false,
 })
+
+const { glassVars } = useGlassStyle(props)
 
 const emit = defineEmits<{ close: [] }>()
 const visible = ref(true)
@@ -45,15 +49,15 @@ const onClose = () => {
   align-items: center;
   gap: 4px;
   backdrop-filter: blur(10px);
-  background: var(--dream-bg-primary);
-  border: 1px solid var(--dream-border-default);
+  background: var(--_glass-bg, var(--dream-bg-primary));
+  border: 1px solid var(--_glass-border, var(--dream-border-default));
   border-radius: var(--dream-radius-sm);
   color: var(--dream-text-primary);
   font-weight: var(--dream-font-medium);
   transition: all var(--dream-transition-fast);
   box-shadow:
     inset 0 0 8px rgba(255,255,255,0.02),
-    0 0 1px rgba(255,255,255,0.10);
+    0 0 1px var(--_glass-glow, rgba(255,255,255,0.10));
 
   &--sm { padding: 2px 8px; font-size: var(--dream-text-xs); }
   &--md { padding: 4px 10px; font-size: var(--dream-text-xs); }

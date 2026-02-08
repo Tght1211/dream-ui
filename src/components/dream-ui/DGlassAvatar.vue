@@ -5,6 +5,7 @@
       `d-glass-avatar--${size}`,
       `d-glass-avatar--${variant}`,
     ]"
+    :style="glassVars"
   >
     <img v-if="src" :src="src" :alt="alt" class="d-glass-avatar__img" />
     <span v-else class="d-glass-avatar__fallback">{{ initials }}</span>
@@ -19,10 +20,11 @@
  * @since 2026-02-08
  */
 import { computed } from 'vue'
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
 
 defineOptions({ name: 'DGlassAvatar' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   src?: string
   alt?: string
   name?: string
@@ -39,6 +41,8 @@ const props = withDefaults(defineProps<Props>(), {
   variant: 'default',
   status: '',
 })
+
+const { glassVars } = useGlassStyle(props)
 
 const initials = computed(() => {
   if (!props.name) return '?'
@@ -60,8 +64,8 @@ const initials = computed(() => {
   border-radius: var(--dream-radius-full);
   backdrop-filter: blur(12px) saturate(1.1);
   -webkit-backdrop-filter: blur(12px) saturate(1.1);
-  background: var(--dream-bg-secondary);
-  border: 1.5px solid var(--dream-border-default);
+  background: var(--_glass-bg, var(--dream-bg-secondary));
+  border: 1.5px solid var(--_glass-border, var(--dream-border-default));
   overflow: hidden;
   flex-shrink: 0;
   transition: all var(--dream-transition-base);
@@ -69,7 +73,7 @@ const initials = computed(() => {
   /* 白色光晕 */
   box-shadow:
     inset 0 0 10px rgba(255, 255, 255, 0.03),
-    0 0 1px rgba(255, 255, 255, 0.15),
+    0 0 1px var(--_glass-glow, rgba(255, 255, 255, 0.15)),
     0 0 10px rgba(255, 255, 255, 0.03);
 
   &--sm { width: 32px; height: 32px; font-size: var(--dream-text-xs); }
@@ -81,7 +85,7 @@ const initials = computed(() => {
     border-color: rgba(var(--dream-color-primary-rgb), 0.30);
     box-shadow:
       inset 0 0 10px rgba(var(--dream-color-primary-rgb), 0.04),
-      0 0 1px rgba(var(--dream-color-primary-rgb), 0.25),
+      0 0 1px var(--_glass-glow, rgba(var(--dream-color-primary-rgb), 0.25)),
       0 0 12px rgba(var(--dream-color-primary-rgb), 0.08);
   }
 
@@ -89,7 +93,7 @@ const initials = computed(() => {
     border-color: rgba(var(--dream-color-success-rgb), 0.30);
     box-shadow:
       inset 0 0 10px rgba(var(--dream-color-success-rgb), 0.04),
-      0 0 1px rgba(var(--dream-color-success-rgb), 0.25),
+      0 0 1px var(--_glass-glow, rgba(var(--dream-color-success-rgb), 0.25)),
       0 0 12px rgba(var(--dream-color-success-rgb), 0.08);
   }
 
@@ -97,7 +101,7 @@ const initials = computed(() => {
     border-color: rgba(var(--dream-color-info-rgb), 0.30);
     box-shadow:
       inset 0 0 10px rgba(var(--dream-color-info-rgb), 0.04),
-      0 0 1px rgba(var(--dream-color-info-rgb), 0.25),
+      0 0 1px var(--_glass-glow, rgba(var(--dream-color-info-rgb), 0.25)),
       0 0 12px rgba(var(--dream-color-info-rgb), 0.08);
   }
 

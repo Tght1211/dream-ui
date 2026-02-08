@@ -80,6 +80,37 @@
             </button>
           </div>
         </div>
+
+        <!-- 梦幻蒙版控制 -->
+        <div class="d-bg-switcher__divider" />
+        <div class="d-bg-switcher__group">
+          <span class="d-bg-switcher__group-label">梦幻蒙版 DreamVeil</span>
+          <div class="d-bg-switcher__veil-row">
+            <button
+              :class="['d-bg-switcher__veil-toggle', { 'd-bg-switcher__veil-toggle--on': veilEnabled }]"
+              @click="toggleVeil"
+            >
+              {{ veilEnabled ? '✦ 开启' : '○ 关闭' }}
+            </button>
+            <button
+              :class="['d-bg-switcher__veil-toggle', { 'd-bg-switcher__veil-toggle--on': veilParticles }]"
+              @click="toggleVeilParticles"
+              :disabled="!veilEnabled"
+            >
+              {{ veilParticles ? '✧ 光斑' : '○ 光斑' }}
+            </button>
+          </div>
+          <div v-if="veilEnabled" class="d-bg-switcher__veil-row" style="margin-top:6px;">
+            <button
+              v-for="level in veilLevels"
+              :key="level.id"
+              :class="['d-bg-switcher__veil-opt', { 'd-bg-switcher__veil-opt--active': veilIntensity === level.id }]"
+              @click="setVeilIntensity(level.id)"
+            >
+              {{ level.label }}
+            </button>
+          </div>
+        </div>
       </div>
     </Transition>
   </div>
@@ -92,17 +123,23 @@
  * @since 2026-02-08
  */
 import { ref, computed } from 'vue'
-import { useBackground } from '../../composables/useBackground'
+import { useBackground, type VeilIntensity } from '../../composables/useBackground'
 
 defineOptions({ name: 'DBackgroundSwitcher' })
 
-const { currentBg, bgOptions, setBg } = useBackground()
+const { currentBg, bgOptions, setBg, veilEnabled, veilIntensity, veilParticles, toggleVeil, setVeilIntensity, toggleVeilParticles } = useBackground()
 const isOpen = ref(false)
 
 const animatedOptions = computed(() => bgOptions.filter(o => o.category === 'animated'))
 const gradientOptions = computed(() => bgOptions.filter(o => o.category === 'gradient'))
 const patternOptions = computed(() => bgOptions.filter(o => o.category === 'pattern'))
 const solidOptions = computed(() => bgOptions.filter(o => o.category === 'solid'))
+
+const veilLevels: { id: VeilIntensity; label: string }[] = [
+  { id: 'subtle', label: '轻柔' },
+  { id: 'medium', label: '标准' },
+  { id: 'strong', label: '浓郁' },
+]
 </script>
 
 <style scoped lang="scss">
@@ -257,6 +294,57 @@ const solidOptions = computed(() => bgOptions.filter(o => o.category === 'solid'
   &__label {
     font-size: 10px;
     white-space: nowrap;
+  }
+
+  &__divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
+    margin: var(--dream-space-md) 0;
+  }
+
+  &__veil-row {
+    display: flex;
+    gap: 6px;
+  }
+
+  &__veil-toggle {
+    flex: 1;
+    padding: 7px 10px;
+    font-size: 12px;
+    border-radius: var(--dream-radius-sm);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--dream-text-tertiary);
+    cursor: pointer;
+    transition: all var(--dream-transition-fast);
+
+    &:hover { border-color: rgba(255,255,255,0.15); color: var(--dream-text-secondary); }
+    &--on {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.22);
+      color: var(--dream-text-primary);
+    }
+    &:disabled { opacity: 0.3; pointer-events: none; }
+  }
+
+  &__veil-opt {
+    flex: 1;
+    padding: 5px 8px;
+    font-size: 11px;
+    border-radius: var(--dream-radius-sm);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.06);
+    color: var(--dream-text-tertiary);
+    cursor: pointer;
+    transition: all var(--dream-transition-fast);
+
+    &:hover { color: var(--dream-text-secondary); border-color: rgba(255,255,255,0.12); }
+    &--active {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.25);
+      color: var(--dream-text-primary);
+      box-shadow: inset 0 0 6px rgba(255,255,255,0.03), 0 0 1px rgba(255,255,255,0.12);
+    }
   }
 }
 

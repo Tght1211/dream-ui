@@ -1,5 +1,5 @@
 <template>
-  <div class="d-glass-tabs">
+  <div class="d-glass-tabs" :style="glassVars">
     <div class="d-glass-tabs__header">
       <button
         v-for="tab in tabs"
@@ -22,6 +22,8 @@
  * @author buchi
  * @since 2026-02-08
  */
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+
 defineOptions({ name: 'DGlassTabs' })
 
 interface TabItem {
@@ -29,13 +31,15 @@ interface TabItem {
   label: string
 }
 
-interface Props {
+interface Props extends GlassCustomProps {
   modelValue: string
   tabs: TabItem[]
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 defineEmits<{ 'update:modelValue': [value: string] }>()
+
+const { glassVars } = useGlassStyle(props)
 </script>
 
 <style scoped lang="scss">

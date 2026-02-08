@@ -11,6 +11,7 @@
         'd-glass-button--outline': outline,
       }
     ]"
+    :style="glassVars"
     :disabled="disabled || loading"
     @click="$emit('click', $event)"
   >
@@ -27,9 +28,11 @@
  * @author buchi
  * @since 2026-02-08
  */
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+
 defineOptions({ name: 'DGlassButton' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   variant?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'ghost'
   size?: 'sm' | 'md' | 'lg'
   block?: boolean
@@ -39,7 +42,7 @@ interface Props {
   outline?: boolean
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   variant: 'default',
   size: 'md',
   block: false,
@@ -48,6 +51,8 @@ withDefaults(defineProps<Props>(), {
   iconOnly: false,
   outline: false,
 })
+
+const { glassVars } = useGlassStyle(props)
 
 defineEmits<{
   click: [event: MouseEvent]
@@ -63,8 +68,8 @@ defineEmits<{
   gap: var(--dream-space-sm);
   backdrop-filter: blur(20px) saturate(1.1);
   -webkit-backdrop-filter: blur(20px) saturate(1.1);
-  background: var(--dream-bg-primary);
-  border: 1px solid var(--dream-border-default);
+  background: var(--_glass-bg, var(--dream-bg-primary));
+  border: 1px solid var(--_glass-border, var(--dream-border-default));
   border-radius: var(--dream-radius-md);
   color: var(--dream-text-primary);
   font-weight: var(--dream-font-medium);
@@ -77,7 +82,7 @@ defineEmits<{
   box-shadow:
     inset 0 0 12px rgba(255, 255, 255, 0.03),
     inset 0 1px 0 rgba(255, 255, 255, 0.10),
-    0 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 1px 0 var(--_glass-glow, rgba(255, 255, 255, 0.15)),
     0 0 10px rgba(255, 255, 255, 0.03),
     0 4px 16px rgba(0, 0, 0, 0.20);
 
@@ -87,7 +92,7 @@ defineEmits<{
     box-shadow:
       inset 0 0 20px rgba(255, 255, 255, 0.05),
       inset 0 1px 0 rgba(255, 255, 255, 0.18),
-      0 0 1px 0 rgba(255, 255, 255, 0.30),
+      0 0 1px 0 var(--_glass-glow, rgba(255, 255, 255, 0.30)),
       0 0 15px rgba(255, 255, 255, 0.06),
       0 0 40px rgba(255, 255, 255, 0.02),
       0 6px 24px rgba(0, 0, 0, 0.25);

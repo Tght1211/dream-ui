@@ -8,6 +8,7 @@
         'd-glass-card--glow': glow,
       }
     ]"
+    :style="glassVars"
   >
     <div v-if="$slots.header" class="d-glass-card__header">
       <slot name="header" />
@@ -28,19 +29,23 @@
  * @author buchi
  * @since 2026-02-08
  */
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+
 defineOptions({ name: 'DGlassCard' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   variant?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info'
   hoverable?: boolean
   glow?: boolean
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   variant: 'default',
   hoverable: false,
   glow: false,
 })
+
+const { glassVars } = useGlassStyle(props)
 </script>
 
 <style scoped lang="scss">
@@ -48,8 +53,8 @@ withDefaults(defineProps<Props>(), {
   position: relative;
   backdrop-filter: blur(24px) saturate(1.1);
   -webkit-backdrop-filter: blur(24px) saturate(1.1);
-  background: var(--dream-bg-primary);
-  border: 1px solid var(--dream-border-default);
+  background: var(--_glass-bg, var(--dream-bg-primary));
+  border: 1px solid var(--_glass-border, var(--dream-border-default));
   border-radius: var(--dream-radius-lg);
   color: var(--dream-text-primary);
   overflow: hidden;
@@ -61,7 +66,7 @@ withDefaults(defineProps<Props>(), {
     inset 0 0 20px rgba(255, 255, 255, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     /* 外光晕 - 边缘柔和扩散 */
-    0 0 1px 0 rgba(255, 255, 255, 0.20),
+    0 0 1px 0 var(--_glass-glow, rgba(255, 255, 255, 0.20)),
     0 0 15px rgba(255, 255, 255, 0.04),
     0 0 30px rgba(255, 255, 255, 0.02),
     /* 投影 */
@@ -76,7 +81,7 @@ withDefaults(defineProps<Props>(), {
       box-shadow:
         inset 0 0 30px rgba(255, 255, 255, 0.06),
         inset 0 1px 0 rgba(255, 255, 255, 0.20),
-        0 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 0 1px 0 var(--_glass-glow, rgba(255, 255, 255, 0.35)),
         0 0 20px rgba(255, 255, 255, 0.08),
         0 0 50px rgba(255, 255, 255, 0.03),
         0 12px 40px rgba(0, 0, 0, 0.3);

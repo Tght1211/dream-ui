@@ -2,7 +2,7 @@
   <Teleport to="body">
     <Transition name="dream-dialog">
       <div v-if="modelValue" class="d-glass-dialog__overlay" @click.self="onOverlayClick">
-        <div :class="['d-glass-dialog', `d-glass-dialog--${size}`]">
+        <div :class="['d-glass-dialog', `d-glass-dialog--${size}`]" :style="glassVars">
           <div class="d-glass-dialog__header">
             <h3 class="d-glass-dialog__title">{{ title }}</h3>
             <button v-if="closable" class="d-glass-dialog__close" @click="close">✕</button>
@@ -25,9 +25,11 @@
  * @author buchi
  * @since 2026-02-08
  */
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+
 defineOptions({ name: 'DGlassDialog' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   modelValue?: boolean
   title?: string
   size?: 'sm' | 'md' | 'lg'
@@ -42,6 +44,8 @@ const props = withDefaults(defineProps<Props>(), {
   closable: true,
   closeOnOverlay: true,
 })
+
+const { glassVars } = useGlassStyle(props)
 
 const emit = defineEmits<{
   'update:modelValue': [value: boolean]
@@ -69,8 +73,8 @@ const onOverlayClick = () => {
 
   backdrop-filter: blur(40px) saturate(1.2);
   -webkit-backdrop-filter: blur(40px) saturate(1.2);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--_glass-bg, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--_glass-border, rgba(255, 255, 255, 0.18));
   border-radius: var(--dream-radius-xl);
   width: 100%;
   max-height: 80vh;
@@ -83,9 +87,9 @@ const onOverlayClick = () => {
     inset 0 0 40px rgba(255, 255, 255, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.20),
     inset 0 -1px 0 rgba(255, 255, 255, 0.05),
-    0 0 2px 0 rgba(255, 255, 255, 0.30),
-    0 0 20px rgba(255, 255, 255, 0.08),
-    0 0 60px rgba(255, 255, 255, 0.03),
+    0 0 2px 0 var(--_glass-glow, rgba(255, 255, 255, 0.30)),
+    0 0 20px var(--_glass-glow, rgba(255, 255, 255, 0.08)),
+    0 0 60px var(--_glass-glow, rgba(255, 255, 255, 0.03)),
     0 20px 60px rgba(0, 0, 0, 0.35);
 
   &--sm { max-width: 400px; }

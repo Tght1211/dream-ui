@@ -9,6 +9,7 @@
         'd-glass-input--error': error,
       }
     ]"
+    :style="glassVars"
   >
     <label v-if="label" class="d-glass-input__label">{{ label }}</label>
     <div class="d-glass-input__wrapper">
@@ -48,10 +49,11 @@
  * @since 2026-02-08
  */
 import { ref } from 'vue'
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
 
 defineOptions({ name: 'DGlassInput' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   modelValue?: string
   type?: string
   placeholder?: string
@@ -64,7 +66,7 @@ interface Props {
   clearable?: boolean
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
   type: 'text',
   placeholder: '',
@@ -76,6 +78,8 @@ withDefaults(defineProps<Props>(), {
   readonly: false,
   clearable: false,
 })
+
+const { glassVars } = useGlassStyle(props)
 
 const emit = defineEmits<{
   'update:modelValue': [value: string]
@@ -127,8 +131,8 @@ defineExpose({ focus: () => inputRef.value?.focus() })
     align-items: center;
     backdrop-filter: blur(20px) saturate(1.1);
     -webkit-backdrop-filter: blur(20px) saturate(1.1);
-    background: var(--dream-bg-primary);
-    border: 1px solid var(--dream-border-default);
+    background: var(--_glass-bg, var(--dream-bg-primary));
+    border: 1px solid var(--_glass-border, var(--dream-border-default));
     border-radius: var(--dream-radius-md);
     transition: all var(--dream-transition-base);
     overflow: hidden;
@@ -137,7 +141,7 @@ defineExpose({ focus: () => inputRef.value?.focus() })
     box-shadow:
       inset 0 0 12px rgba(255, 255, 255, 0.02),
       inset 0 1px 0 rgba(255, 255, 255, 0.08),
-      0 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 0 1px 0 var(--_glass-glow, rgba(255, 255, 255, 0.12)),
       0 0 10px rgba(255, 255, 255, 0.02),
       0 4px 16px rgba(0, 0, 0, 0.15);
   }
@@ -147,7 +151,7 @@ defineExpose({ focus: () => inputRef.value?.focus() })
     box-shadow:
       inset 0 0 20px rgba(255, 255, 255, 0.04),
       inset 0 1px 0 rgba(255, 255, 255, 0.15),
-      0 0 1px 0 rgba(255, 255, 255, 0.30),
+      0 0 1px 0 var(--_glass-glow, rgba(255, 255, 255, 0.30)),
       0 0 15px rgba(255, 255, 255, 0.06),
       0 0 40px rgba(255, 255, 255, 0.02),
       0 4px 16px rgba(0, 0, 0, 0.20);

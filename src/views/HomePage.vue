@@ -18,7 +18,7 @@
           设计指南
         </DGlassButton>
       </div>
-      <p class="hero__stat">20+ 玻璃拟态组件 · TypeScript · Vue 3 Composition API</p>
+      <p class="hero__stat">28+ 玻璃拟态组件 · TypeScript · Vue 3 Composition API · 梦幻蒙版特效</p>
     </section>
 
     <!-- Features -->
@@ -283,6 +283,117 @@
         </div>
       </DemoBlock>
 
+      <!-- Textarea 文本域 -->
+      <h3 class="showcase__subtitle">Textarea 文本域</h3>
+      <DemoBlock description="多行文本输入框" :code="codeTextarea">
+        <div style="max-width:400px;">
+          <DGlassTextarea v-model="textareaVal" label="留言" placeholder="请输入内容..." :rows="3" />
+        </div>
+      </DemoBlock>
+
+      <!-- Slider 滑块 -->
+      <h3 class="showcase__subtitle">Slider 滑块</h3>
+      <DemoBlock description="可拖拽的滑块选择器" :code="codeSlider">
+        <div style="max-width:400px;" class="demo-col">
+          <DGlassSlider v-model="sliderVal" show-value />
+          <DGlassSlider v-model="sliderVal2" label="亮度" :min="0" :max="255" show-value />
+        </div>
+      </DemoBlock>
+
+      <!-- Tooltip 工具提示 -->
+      <h3 class="showcase__subtitle">Tooltip 工具提示</h3>
+      <DemoBlock description="鼠标悬停显示提示信息" :code="codeTooltip">
+        <div class="demo-row" style="gap:24px;">
+          <DGlassTooltip content="上方提示" placement="top">
+            <DGlassButton>上</DGlassButton>
+          </DGlassTooltip>
+          <DGlassTooltip content="下方提示" placement="bottom">
+            <DGlassButton>下</DGlassButton>
+          </DGlassTooltip>
+          <DGlassTooltip content="左侧提示" placement="left">
+            <DGlassButton>左</DGlassButton>
+          </DGlassTooltip>
+          <DGlassTooltip content="右侧提示" placement="right">
+            <DGlassButton>右</DGlassButton>
+          </DGlassTooltip>
+        </div>
+      </DemoBlock>
+
+      <!-- Popover 弹出框 -->
+      <h3 class="showcase__subtitle">Popover 弹出框</h3>
+      <DemoBlock description="点击触发的弹出信息框" :code="codePopover">
+        <DGlassPopover title="详细信息">
+          <template #trigger>
+            <DGlassButton>点击弹出</DGlassButton>
+          </template>
+          <p>这是一个玻璃拟态弹出框，适合展示额外信息或操作菜单。</p>
+        </DGlassPopover>
+      </DemoBlock>
+
+      <!-- Breadcrumb 面包屑 -->
+      <h3 class="showcase__subtitle">Breadcrumb 面包屑</h3>
+      <DemoBlock description="页面路径导航" :code="codeBreadcrumb">
+        <DGlassBreadcrumb :items="breadcrumbItems" />
+      </DemoBlock>
+
+      <!-- Empty 空状态 -->
+      <h3 class="showcase__subtitle">Empty 空状态</h3>
+      <DemoBlock description="数据为空时的占位组件" :code="codeEmpty">
+        <div class="demo-grid-2">
+          <DGlassCard>
+            <DGlassEmpty />
+          </DGlassCard>
+          <DGlassCard>
+            <DGlassEmpty icon="🔍" description="未找到匹配结果">
+              <DGlassButton variant="primary" size="sm">重新搜索</DGlassButton>
+            </DGlassEmpty>
+          </DGlassCard>
+        </div>
+      </DemoBlock>
+
+      <!-- Drawer 抽屉 -->
+      <h3 class="showcase__subtitle">Drawer 抽屉</h3>
+      <DemoBlock description="侧边滑出抽屉面板" :code="codeDrawer">
+        <DGlassButton @click="drawerVisible = true">打开抽屉</DGlassButton>
+        <DGlassDrawer v-model="drawerVisible" title="设置面板">
+          <div class="demo-col" style="gap:16px;">
+            <DGlassSwitch v-model="switchVal">开启通知</DGlassSwitch>
+            <DGlassSlider v-model="sliderVal" label="音量" show-value />
+            <DGlassSelect v-model="selectVal" label="语言" :options="[{label:'中文',value:'zh'},{label:'English',value:'en'}]" />
+          </div>
+          <template #footer>
+            <DGlassButton variant="ghost" @click="drawerVisible = false">取消</DGlassButton>
+            <DGlassButton variant="primary" @click="drawerVisible = false">保存</DGlassButton>
+          </template>
+        </DGlassDrawer>
+      </DemoBlock>
+
+      <!-- BackgroundLayer 背景层 -->
+      <h3 class="showcase__subtitle">BackgroundLayer 背景层</h3>
+      <DemoBlock description="点击下方按钮实时切换全局背景" :code="codeBgLayer">
+        <div class="demo-row">
+          <DGlassButton v-for="bg in previewBgs" :key="bg.id" size="sm" :variant="currentBg === bg.id ? 'primary' : 'ghost'" @click="setBg(bg.id)">
+            {{ bg.icon }} {{ bg.label }}
+          </DGlassButton>
+        </div>
+      </DemoBlock>
+
+      <!-- DreamVeil 梦幻蒙版 -->
+      <h3 class="showcase__subtitle">DreamVeil 梦幻蒙版</h3>
+      <DemoBlock description="控制全屏白色蒙版的开关与强度，体验日漫/P5R 风格柔光滤镜" :code="codeDreamVeil">
+        <div class="demo-col" style="gap:14px;">
+          <div class="demo-row" style="align-items:center;">
+            <DGlassSwitch v-model="veilEnabled">蒙版开关</DGlassSwitch>
+            <DGlassSwitch v-model="veilParticles" :disabled="!veilEnabled">光斑粒子</DGlassSwitch>
+          </div>
+          <div class="demo-row">
+            <DGlassButton size="sm" :variant="veilIntensity === 'subtle' ? 'primary' : 'ghost'" :disabled="!veilEnabled" @click="setVeilIntensity('subtle')">轻柔</DGlassButton>
+            <DGlassButton size="sm" :variant="veilIntensity === 'medium' ? 'primary' : 'ghost'" :disabled="!veilEnabled" @click="setVeilIntensity('medium')">标准</DGlassButton>
+            <DGlassButton size="sm" :variant="veilIntensity === 'strong' ? 'primary' : 'ghost'" :disabled="!veilEnabled" @click="setVeilIntensity('strong')">浓郁</DGlassButton>
+          </div>
+        </div>
+      </DemoBlock>
+
       <!-- Clock 时钟组合 -->
       <h3 class="showcase__subtitle">组合示例：时钟卡片</h3>
       <DemoBlock description="使用 Card + 自定义内容实现 VR 风格时钟" :code="codeClock">
@@ -333,8 +444,10 @@ import {
   DGlassBadge,
   DGlassCard,
   DGlassInput,
+  DGlassTextarea,
   DGlassSelect,
   DGlassSwitch,
+  DGlassSlider,
   DGlassTag,
   DGlassAvatar,
   DGlassAlert,
@@ -346,8 +459,18 @@ import {
   DGlassLoading,
   DGlassWidget,
   DGlassDialog,
+  DGlassDrawer,
   DGlassNotification,
+  DGlassTooltip,
+  DGlassPopover,
+  DGlassBreadcrumb,
+  DGlassEmpty,
 } from '../components/dream-ui'
+import { useBackground } from '../composables/useBackground'
+
+const { currentBg, bgOptions, setBg, veilEnabled, veilIntensity, veilParticles, setVeilIntensity } = useBackground()
+
+const previewBgs = bgOptions.slice(0, 8)
 
 // ========== 特性列表 ==========
 const features = [
@@ -367,6 +490,16 @@ const switchVal = ref(true)
 const switchVal2 = ref(false)
 const activeTab = ref('design')
 const dialogVisible = ref(false)
+const drawerVisible = ref(false)
+const textareaVal = ref('')
+const sliderVal = ref(40)
+const sliderVal2 = ref(128)
+
+const breadcrumbItems = [
+  { label: '首页', href: '/' },
+  { label: '组件', href: '/components' },
+  { label: 'Breadcrumb 面包屑' },
+]
 
 const cityOptions = [
   { label: '广州', value: 'gz' },
@@ -719,6 +852,135 @@ onMounted(() => {
       String(now.getMinutes()).padStart(2, '0')
   }, 1000)
 })
+<\/script>`
+
+const codeTextarea = `<template>
+  <DGlassTextarea
+    v-model="content"
+    label="留言"
+    placeholder="请输入内容..."
+    :rows="3"
+  />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const content = ref('')
+<\/script>`
+
+const codeSlider = `<template>
+  <DGlassSlider v-model="value" show-value />
+  <DGlassSlider v-model="brightness" label="亮度" :min="0" :max="255" show-value />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const value = ref(40)
+const brightness = ref(128)
+<\/script>`
+
+const codeTooltip = `<template>
+  <DGlassTooltip content="上方提示" placement="top">
+    <DGlassButton>上</DGlassButton>
+  </DGlassTooltip>
+  <DGlassTooltip content="下方提示" placement="bottom">
+    <DGlassButton>下</DGlassButton>
+  </DGlassTooltip>
+  <DGlassTooltip content="左侧提示" placement="left">
+    <DGlassButton>左</DGlassButton>
+  </DGlassTooltip>
+  <DGlassTooltip content="右侧提示" placement="right">
+    <DGlassButton>右</DGlassButton>
+  </DGlassTooltip>
+</template>`
+
+const codePopover = `<template>
+  <DGlassPopover title="详细信息">
+    <template #trigger>
+      <DGlassButton>点击弹出</DGlassButton>
+    </template>
+    <p>适合展示额外信息或操作菜单。</p>
+  </DGlassPopover>
+</template>`
+
+const codeBreadcrumb = `<template>
+  <DGlassBreadcrumb :items="items" />
+</template>
+
+<script setup>
+const items = [
+  { label: '首页', href: '/' },
+  { label: '组件', href: '/components' },
+  { label: 'Breadcrumb 面包屑' },
+]
+<\/script>`
+
+const codeEmpty = `<template>
+  <!-- 默认 -->
+  <DGlassEmpty />
+
+  <!-- 自定义 + 操作按钮 -->
+  <DGlassEmpty icon="🔍" description="未找到匹配结果">
+    <DGlassButton variant="primary" size="sm">重新搜索</DGlassButton>
+  </DGlassEmpty>
+</template>`
+
+const codeBgLayer = `<template>
+  <!-- 放在 App.vue 最底层，作为全屏背景 -->
+  <DBackgroundLayer :bg-id="currentBg" />
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { DBackgroundLayer } from 'dream-ui'
+
+// 可选值: liquid, aurora, lava, ocean, neon,
+//         sunset, forest, candy, midnight, warm,
+//         grid-white, grid-dark, dots,
+//         pure-dark, pure-blue, pure-white 等
+const currentBg = ref('neon')
+<\/script>`
+
+const codeDreamVeil = `<template>
+  <!-- 放在 App.vue 中，位于背景层之后、内容之前 -->
+  <DDreamVeil
+    v-if="veilEnabled"
+    :intensity="veilIntensity"
+    :particles="veilParticles"
+  />
+</template>
+
+<script setup>
+import { DDreamVeil } from 'dream-ui'
+import { useBackground } from 'dream-ui'
+
+const {
+  veilEnabled,       // Ref<boolean>
+  veilIntensity,     // Ref<'subtle'|'medium'|'strong'>
+  veilParticles,     // Ref<boolean>
+  toggleVeil,
+  setVeilIntensity,
+} = useBackground()
+<\/script>`
+
+const codeDrawer = `<template>
+  <DGlassButton @click="visible = true">打开抽屉</DGlassButton>
+
+  <DGlassDrawer v-model="visible" title="设置面板">
+    <DGlassSwitch v-model="notify">开启通知</DGlassSwitch>
+    <DGlassSlider v-model="volume" label="音量" show-value />
+    <template #footer>
+      <DGlassButton variant="ghost" @click="visible = false">取消</DGlassButton>
+      <DGlassButton variant="primary" @click="visible = false">保存</DGlassButton>
+    </template>
+  </DGlassDrawer>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+const visible = ref(false)
+const notify = ref(true)
+const volume = ref(50)
 <\/script>`
 </script>
 

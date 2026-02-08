@@ -44,8 +44,10 @@ const navGroups = [
     title: '表单',
     items: [
       { path: 'input', label: 'Input 输入框', tag: 'DGlassInput' },
+      { path: 'textarea', label: 'Textarea 文本域', tag: 'DGlassTextarea' },
       { path: 'select', label: 'Select 选择器', tag: 'DGlassSelect' },
       { path: 'switch', label: 'Switch 开关', tag: 'DGlassSwitch' },
+      { path: 'slider', label: 'Slider 滑块', tag: 'DGlassSlider' },
     ],
   },
   {
@@ -60,6 +62,7 @@ const navGroups = [
       { path: 'timeline', label: 'Timeline 时间线', tag: 'DGlassTimeline' },
       { path: 'collapse', label: 'Collapse 折叠面板', tag: 'DGlassCollapse' },
       { path: 'loading', label: 'Loading 加载', tag: 'DGlassLoading' },
+      { path: 'empty', label: 'Empty 空状态', tag: 'DGlassEmpty' },
     ],
   },
   {
@@ -67,7 +70,24 @@ const navGroups = [
     items: [
       { path: 'alert', label: 'Alert 警告', tag: 'DGlassAlert' },
       { path: 'dialog', label: 'Dialog 对话框', tag: 'DGlassDialog' },
+      { path: 'drawer', label: 'Drawer 抽屉', tag: 'DGlassDrawer' },
       { path: 'notification', label: 'Notification 通知', tag: 'DGlassNotification' },
+      { path: 'tooltip', label: 'Tooltip 提示', tag: 'DGlassTooltip' },
+      { path: 'popover', label: 'Popover 弹出框', tag: 'DGlassPopover' },
+    ],
+  },
+  {
+    title: '导航',
+    items: [
+      { path: 'breadcrumb', label: 'Breadcrumb 面包屑', tag: 'DGlassBreadcrumb' },
+    ],
+  },
+  {
+    title: '特效 / 场景',
+    items: [
+      { path: 'background-layer', label: 'BackgroundLayer 背景层', tag: 'DBackgroundLayer' },
+      { path: 'background-switcher', label: 'BackgroundSwitcher 切换器', tag: 'DBackgroundSwitcher' },
+      { path: 'dream-veil', label: 'DreamVeil 梦幻蒙版', tag: 'DDreamVeil' },
     ],
   },
 ]

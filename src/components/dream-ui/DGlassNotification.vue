@@ -3,6 +3,7 @@
     <div
       v-if="visible"
       :class="['d-glass-notification', `d-glass-notification--${type}`]"
+      :style="glassVars"
     >
       <span class="d-glass-notification__icon">{{ iconMap[type] }}</span>
       <div class="d-glass-notification__content">
@@ -23,10 +24,11 @@
  * @since 2026-02-08
  */
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
 
 defineOptions({ name: 'DGlassNotification' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   type?: 'info' | 'success' | 'warning' | 'danger'
   title?: string
   message?: string
@@ -41,6 +43,8 @@ const props = withDefaults(defineProps<Props>(), {
   closable: true,
   duration: 4000,
 })
+
+const { glassVars } = useGlassStyle(props)
 
 const emit = defineEmits<{
   close: []
@@ -79,8 +83,8 @@ onUnmounted(() => {
   gap: var(--dream-space-md);
   backdrop-filter: blur(30px) saturate(1.2);
   -webkit-backdrop-filter: blur(30px) saturate(1.2);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--dream-border-default);
+  background: var(--_glass-bg, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--_glass-border, var(--dream-border-default));
   border-radius: var(--dream-radius-lg);
   padding: var(--dream-space-lg) var(--dream-space-xl);
   max-width: 420px;
@@ -90,9 +94,9 @@ onUnmounted(() => {
   box-shadow:
     inset 0 0 20px rgba(255, 255, 255, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 0 1px 0 rgba(255, 255, 255, 0.20),
-    0 0 15px rgba(255, 255, 255, 0.05),
-    0 0 40px rgba(255, 255, 255, 0.02),
+    0 0 1px 0 var(--_glass-glow, rgba(255, 255, 255, 0.20)),
+    0 0 15px var(--_glass-glow, rgba(255, 255, 255, 0.05)),
+    0 0 40px var(--_glass-glow, rgba(255, 255, 255, 0.02)),
     0 12px 40px rgba(0, 0, 0, 0.25);
 
   &__icon {

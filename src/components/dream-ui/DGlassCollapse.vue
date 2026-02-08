@@ -1,5 +1,5 @@
 <template>
-  <div class="d-glass-collapse">
+  <div class="d-glass-collapse" :style="glassVars">
     <div
       v-for="(item, i) in items"
       :key="i"
@@ -25,6 +25,7 @@
  * @since 2026-02-08
  */
 import { ref } from 'vue'
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
 
 defineOptions({ name: 'DGlassCollapse' })
 
@@ -33,7 +34,7 @@ interface CollapseItem {
   content: string
 }
 
-interface Props {
+interface Props extends GlassCustomProps {
   items: CollapseItem[]
   accordion?: boolean
 }
@@ -41,6 +42,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   accordion: false,
 })
+
+const { glassVars } = useGlassStyle(props)
 
 const openKeys = ref<number[]>([])
 
@@ -55,14 +58,14 @@ const toggle = (idx: number) => {
 
 <style scoped lang="scss">
 .d-glass-collapse {
-  border: 1px solid var(--dream-border-default);
+  border: 1px solid var(--_glass-border, var(--dream-border-default));
   border-radius: var(--dream-radius-lg);
   overflow: hidden;
   backdrop-filter: blur(20px);
-  background: var(--dream-bg-primary);
+  background: var(--_glass-bg, var(--dream-bg-primary));
   box-shadow:
     inset 0 0 15px rgba(255,255,255,0.03),
-    0 0 1px rgba(255,255,255,0.12);
+    0 0 1px var(--_glass-glow, rgba(255,255,255,0.12));
 
   &__item {
     border-bottom: 1px solid rgba(255,255,255,0.06);

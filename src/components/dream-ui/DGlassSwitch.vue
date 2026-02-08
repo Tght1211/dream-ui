@@ -8,6 +8,7 @@
         'd-glass-switch--disabled': disabled,
       }
     ]"
+    :style="glassVars"
   >
     <input
       type="checkbox"
@@ -31,9 +32,11 @@
  * @author buchi
  * @since 2026-02-08
  */
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+
 defineOptions({ name: 'DGlassSwitch' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   modelValue?: boolean
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
@@ -44,6 +47,8 @@ const props = withDefaults(defineProps<Props>(), {
   size: 'md',
   disabled: false,
 })
+
+const { glassVars } = useGlassStyle(props)
 
 const emit = defineEmits<{
   'update:modelValue': [value: boolean]
@@ -73,14 +78,14 @@ const toggle = () => {
     position: relative;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    background: var(--dream-bg-primary);
-    border: 1px solid var(--dream-border-default);
+    background: var(--_glass-bg, var(--dream-bg-primary));
+    border: 1px solid var(--_glass-border, var(--dream-border-default));
     border-radius: var(--dream-radius-full);
     transition: all var(--dream-transition-base);
 
     box-shadow:
       inset 0 0 8px rgba(255, 255, 255, 0.02),
-      0 0 1px rgba(255, 255, 255, 0.10),
+      0 0 1px var(--_glass-glow, rgba(255, 255, 255, 0.10)),
       0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
@@ -113,7 +118,7 @@ const toggle = () => {
     border-color: rgba(255, 255, 255, 0.30);
     box-shadow:
       inset 0 0 12px rgba(255, 255, 255, 0.05),
-      0 0 1px rgba(255, 255, 255, 0.25),
+      0 0 1px var(--_glass-glow, rgba(255, 255, 255, 0.25)),
       0 0 12px rgba(255, 255, 255, 0.06);
   }
 

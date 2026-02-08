@@ -1,5 +1,5 @@
 <template>
-  <nav class="d-glass-navbar">
+  <nav class="d-glass-navbar" :style="glassVars">
     <div class="d-glass-navbar__inner">
       <div class="d-glass-navbar__brand">
         <slot name="brand" />
@@ -20,7 +20,15 @@
  * @author buchi
  * @since 2026-02-08
  */
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+
 defineOptions({ name: 'DGlassNavbar' })
+
+interface Props extends GlassCustomProps {}
+
+const props = defineProps<Props>()
+
+const { glassVars } = useGlassStyle(props)
 </script>
 
 <style scoped lang="scss">

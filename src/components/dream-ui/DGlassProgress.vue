@@ -1,5 +1,5 @@
 <template>
-  <div :class="['d-glass-progress', `d-glass-progress--${variant}`]">
+  <div :class="['d-glass-progress', `d-glass-progress--${variant}`]" :style="glassVars">
     <div v-if="label || showValue" class="d-glass-progress__header">
       <span v-if="label" class="d-glass-progress__label">{{ label }}</span>
       <span v-if="showValue" class="d-glass-progress__value">{{ percentage }}%</span>
@@ -20,10 +20,11 @@
  * @since 2026-02-08
  */
 import { computed } from 'vue'
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
 
 defineOptions({ name: 'DGlassProgress' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   percentage?: number
   variant?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info'
   label?: string
@@ -36,6 +37,8 @@ const props = withDefaults(defineProps<Props>(), {
   label: '',
   showValue: false,
 })
+
+const { glassVars } = useGlassStyle(props)
 
 const clampedPercentage = computed(() => Math.min(100, Math.max(0, props.percentage)))
 </script>
@@ -66,13 +69,13 @@ const clampedPercentage = computed(() => Math.min(100, Math.max(0, props.percent
     height: 6px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    background: var(--dream-bg-primary);
-    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: var(--_glass-bg, var(--dream-bg-primary));
+    border: 1px solid var(--_glass-border, rgba(255, 255, 255, 0.10));
     border-radius: var(--dream-radius-full);
     overflow: hidden;
     box-shadow:
       inset 0 0 4px rgba(255, 255, 255, 0.02),
-      0 0 1px rgba(255, 255, 255, 0.08);
+      0 0 1px var(--_glass-glow, rgba(255, 255, 255, 0.08));
   }
 
   &__bar {

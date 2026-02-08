@@ -1,5 +1,5 @@
 <template>
-  <div :class="['d-glass-widget', `d-glass-widget--${variant}`]">
+  <div :class="['d-glass-widget', `d-glass-widget--${variant}`]" :style="glassVars">
     <div v-if="icon || title" class="d-glass-widget__header">
       <span v-if="icon" class="d-glass-widget__icon">{{ icon }}</span>
       <div class="d-glass-widget__meta">
@@ -23,21 +23,25 @@
  * @author buchi
  * @since 2026-02-08
  */
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+
 defineOptions({ name: 'DGlassWidget' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   title?: string
   subtitle?: string
   icon?: string
   variant?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info'
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   title: '',
   subtitle: '',
   icon: '',
   variant: 'default',
 })
+
+const { glassVars } = useGlassStyle(props)
 </script>
 
 <style scoped lang="scss">
@@ -64,7 +68,7 @@ withDefaults(defineProps<Props>(), {
     box-shadow:
       inset 0 0 25px rgba(255, 255, 255, 0.06),
       inset 0 1px 0 rgba(255, 255, 255, 0.18),
-      0 0 1px 0 rgba(255, 255, 255, 0.30),
+      0 0 1px 0 var(--_glass-glow, rgba(255, 255, 255, 0.30)),
       0 0 20px rgba(255, 255, 255, 0.07),
       0 0 45px rgba(255, 255, 255, 0.03),
       0 10px 36px rgba(0, 0, 0, 0.28);

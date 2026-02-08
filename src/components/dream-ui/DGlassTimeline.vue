@@ -1,5 +1,5 @@
 <template>
-  <div class="d-glass-timeline">
+  <div class="d-glass-timeline" :style="glassVars">
     <div
       v-for="(item, i) in items"
       :key="i"
@@ -23,6 +23,8 @@
  * @author buchi
  * @since 2026-02-08
  */
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+
 defineOptions({ name: 'DGlassTimeline' })
 
 interface TimelineItem {
@@ -33,7 +35,12 @@ interface TimelineItem {
   active?: boolean
 }
 
-defineProps<{ items: TimelineItem[] }>()
+interface Props extends GlassCustomProps {
+  items: TimelineItem[]
+}
+
+const props = defineProps<Props>()
+const { glassVars } = useGlassStyle(props)
 </script>
 
 <style scoped lang="scss">

@@ -3,6 +3,9 @@
     <!-- 动态背景层 -->
     <DBackgroundLayer :bg-id="currentBg" />
 
+    <!-- 梦幻白色蒙版（日漫/P5R 风格柔光滤镜） -->
+    <DDreamVeil v-if="veilEnabled" :intensity="veilIntensity" :particles="veilParticles" />
+
     <!-- 背景切换器 -->
     <DBackgroundSwitcher />
 
@@ -50,10 +53,10 @@
  * @since 2026-02-08
  */
 import { computed } from 'vue'
-import { DGlassNavbar, DGlassButton, DBackgroundLayer, DBackgroundSwitcher } from './components/dream-ui'
+import { DGlassNavbar, DGlassButton, DBackgroundLayer, DBackgroundSwitcher, DDreamVeil } from './components/dream-ui'
 import { useBackground } from './composables/useBackground'
 
-const { currentBg } = useBackground()
+const { currentBg, veilEnabled, veilIntensity, veilParticles } = useBackground()
 
 const navItems = [
   { path: '/', label: '首页' },

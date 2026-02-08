@@ -18,20 +18,23 @@
  * @since 2026-02-08
  */
 import { ref } from 'vue'
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
 
 defineOptions({ name: 'DGlassAlert' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   type?: 'info' | 'success' | 'warning' | 'danger'
   title?: string
   closable?: boolean
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   type: 'info',
   title: '',
   closable: false,
 })
+
+const { glassVars } = useGlassStyle(props)
 
 const iconMap: Record<string, string> = { info: 'ℹ', success: '✓', warning: '⚠', danger: '✕' }
 const visible = ref(true)
@@ -43,15 +46,15 @@ const visible = ref(true)
   align-items: flex-start;
   gap: var(--dream-space-md);
   backdrop-filter: blur(20px) saturate(1.1);
-  background: var(--dream-bg-primary);
-  border: 1px solid var(--dream-border-default);
+  background: var(--_glass-bg, var(--dream-bg-primary));
+  border: 1px solid var(--_glass-border, var(--dream-border-default));
   border-radius: var(--dream-radius-lg);
   padding: var(--dream-space-lg) var(--dream-space-xl);
   box-shadow:
     inset 0 0 15px rgba(255,255,255,0.03),
     inset 0 1px 0 rgba(255,255,255,0.08),
-    0 0 1px rgba(255,255,255,0.15),
-    0 0 12px rgba(255,255,255,0.03),
+    0 0 1px var(--_glass-glow, rgba(255,255,255,0.15)),
+    0 0 12px var(--_glass-glow, rgba(255,255,255,0.03)),
     0 4px 16px rgba(0,0,0,0.15);
 
   &__icon {

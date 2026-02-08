@@ -1,5 +1,5 @@
 <template>
-  <div :class="['d-glass-loading', `d-glass-loading--${size}`]">
+  <div :class="['d-glass-loading', `d-glass-loading--${size}`]" :style="glassVars">
     <div v-if="type === 'spinner'" class="d-glass-loading__spinner">
       <div v-for="n in 3" :key="n" class="d-glass-loading__dot" />
     </div>
@@ -17,21 +17,25 @@
  * @author buchi
  * @since 2026-02-08
  */
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+
 defineOptions({ name: 'DGlassLoading' })
 
-interface Props {
+interface Props extends GlassCustomProps {
   type?: 'ring' | 'spinner' | 'skeleton'
   size?: 'sm' | 'md' | 'lg'
   text?: string
   lines?: number
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   type: 'ring',
   size: 'md',
   text: '',
   lines: 3,
 })
+
+const { glassVars } = useGlassStyle(props)
 </script>
 
 <style scoped lang="scss">
