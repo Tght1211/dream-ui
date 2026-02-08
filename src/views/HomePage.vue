@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero__badge">
-        <DGlassBadge dot>v0.1.0 · Glassmorphism</DGlassBadge>
+        <DGlassBadge dot>v1.0.2 · Glassmorphism</DGlassBadge>
       </div>
       <h1 class="hero__title">Dream UI</h1>
       <p class="hero__subtitle">
@@ -18,7 +18,7 @@
           设计指南
         </DGlassButton>
       </div>
-      <p class="hero__stat">28+ 玻璃拟态组件 · TypeScript · Vue 3 Composition API · 梦幻蒙版特效</p>
+      <p class="hero__stat">30+ 玻璃拟态组件 · TypeScript · Vue 3 Composition API · 梦幻蒙版 · 黑柔镜</p>
     </section>
 
     <!-- Features -->
@@ -276,7 +276,7 @@
       <h3 class="showcase__subtitle">Notification 通知</h3>
       <DemoBlock description="通知消息条，四种类型" :code="codeNotification">
         <div class="demo-col">
-          <DGlassNotification type="info" title="系统通知" message="Dream UI v0.1.0 已发布，快来体验全新的玻璃拟态组件" :duration="0" />
+          <DGlassNotification type="info" title="系统通知" message="Dream UI v1.0.2 已发布，快来体验全新的玻璃拟态组件" :duration="0" />
           <DGlassNotification type="success" title="操作成功" message="文件已成功上传至云端" :duration="0" />
           <DGlassNotification type="warning" title="安全提醒" message="检测到异地登录，请确认是否为本人操作" :duration="0" />
           <DGlassNotification type="danger" title="连接断开" message="服务器连接中断，正在尝试重新连接..." :duration="0" />
@@ -515,7 +515,7 @@ const tabItems = [
 ]
 
 const timelineItems = [
-  { time: '2026-02-08', title: 'Dream UI 发布', desc: '首个版本包含 20+ 玻璃拟态组件', active: true },
+  { time: '2026-02-08', title: 'Dream UI 发布', desc: '首个版本包含 30+ 玻璃拟态组件', active: true },
   { time: '2026-02-07', title: '完成组件开发', desc: '全部组件通过 TypeScript 类型检查' },
   { time: '2026-02-06', title: '设计规范确定', desc: '完成毛玻璃效果、光晕、间距等设计系统定义' },
   { time: '2026-02-05', title: '项目启动', desc: '创建项目架构，确定技术栈 Vue 3 + Vite + SCSS' },
@@ -803,7 +803,7 @@ const codeNotification = `<template>
   <DGlassNotification
     type="info"
     title="系统通知"
-    message="Dream UI v0.1.0 已发布"
+    message="Dream UI v1.0.2 已发布"
     :duration="0"
   />
   <DGlassNotification

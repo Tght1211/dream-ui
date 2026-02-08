@@ -5,7 +5,7 @@
 
 基于 **Vue 3** + **TypeScript** + **Vite** + **SCSS**，提供 30+ 开箱即用的玻璃拟态组件。
 
-**GitHub**：[https://github.com/Tght1211/dream-ui](https://github.com/Tght1211/dream-ui) | **npm**：[@tght_1211/dream-ui](https://www.npmjs.com/package/@tght_1211/dream-ui)
+**官网**：[https://dream.hulupet.cn](https://dream.hulupet.cn) | **GitHub**：[https://github.com/Tght1211/dream-ui](https://github.com/Tght1211/dream-ui) | **npm**：[@tght_1211/dream-ui](https://www.npmjs.com/package/@tght_1211/dream-ui)
 
 ---
 
@@ -331,7 +331,7 @@ const tabs = [
 ```vue
 <DGlassTimeline :items="[
   { time: '09:00', title: '项目启动', desc: '确定技术栈', active: true },
-  { time: '10:00', title: '开发组件', desc: '完成 20+ 组件' },
+  { time: '10:00', title: '开发组件', desc: '完成 30+ 组件' },
   { time: '11:00', title: '发布上线', desc: 'npm publish' },
 ]" />
 ```
@@ -367,7 +367,7 @@ dist-lib/
 
 ```bash
 npm install
-npm run dev          # 启动文档站 http://localhost:5173
+npm run dev          # 启动文档站 http://localhost:9478
 npm run build        # 构建文档站
 ```
 
