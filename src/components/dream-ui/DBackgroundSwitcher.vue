@@ -111,6 +111,30 @@
             </button>
           </div>
         </div>
+
+        <!-- 黑柔镜控制 -->
+        <div class="d-bg-switcher__divider" />
+        <div class="d-bg-switcher__group">
+          <span class="d-bg-switcher__group-label">黑柔镜 BloomVeil</span>
+          <div class="d-bg-switcher__veil-row">
+            <button
+              :class="['d-bg-switcher__veil-toggle', { 'd-bg-switcher__veil-toggle--on': bloomEnabled }]"
+              @click="toggleBloom"
+            >
+              {{ bloomEnabled ? '✦ 开启' : '○ 关闭' }}
+            </button>
+          </div>
+          <div v-if="bloomEnabled" class="d-bg-switcher__veil-row" style="margin-top:6px;">
+            <button
+              v-for="level in bloomLevels"
+              :key="level.id"
+              :class="['d-bg-switcher__veil-opt', { 'd-bg-switcher__veil-opt--active': bloomIntensity === level.id }]"
+              @click="setBloomIntensity(level.id)"
+            >
+              {{ level.label }}
+            </button>
+          </div>
+        </div>
       </div>
     </Transition>
   </div>
@@ -123,11 +147,11 @@
  * @since 2026-02-08
  */
 import { ref, computed } from 'vue'
-import { useBackground, type VeilIntensity } from '../../composables/useBackground'
+import { useBackground, type VeilIntensity, type BloomIntensity } from '../../composables/useBackground'
 
 defineOptions({ name: 'DBackgroundSwitcher' })
 
-const { currentBg, bgOptions, setBg, veilEnabled, veilIntensity, veilParticles, toggleVeil, setVeilIntensity, toggleVeilParticles } = useBackground()
+const { currentBg, bgOptions, setBg, veilEnabled, veilIntensity, veilParticles, toggleVeil, setVeilIntensity, toggleVeilParticles, bloomEnabled, bloomIntensity, toggleBloom, setBloomIntensity } = useBackground()
 const isOpen = ref(false)
 
 const animatedOptions = computed(() => bgOptions.filter(o => o.category === 'animated'))
@@ -139,6 +163,12 @@ const veilLevels: { id: VeilIntensity; label: string }[] = [
   { id: 'subtle', label: '轻柔' },
   { id: 'medium', label: '标准' },
   { id: 'strong', label: '浓郁' },
+]
+
+const bloomLevels: { id: BloomIntensity; label: string }[] = [
+  { id: 'subtle', label: '轻微' },
+  { id: 'medium', label: '标准' },
+  { id: 'strong', label: '强烈' },
 ]
 </script>
 

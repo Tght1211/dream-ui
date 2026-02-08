@@ -6,6 +6,9 @@
     <!-- 梦幻白色蒙版（日漫/P5R 风格柔光滤镜） -->
     <DDreamVeil v-if="veilEnabled" :intensity="veilIntensity" :particles="veilParticles" />
 
+    <!-- 黑柔镜（Bloom 高光扩散滤镜） -->
+    <DBloomVeil v-if="bloomEnabled" :intensity="bloomIntensity" />
+
     <!-- 背景切换器 -->
     <DBackgroundSwitcher />
 
@@ -53,10 +56,10 @@
  * @since 2026-02-08
  */
 import { computed } from 'vue'
-import { DGlassNavbar, DGlassButton, DBackgroundLayer, DBackgroundSwitcher, DDreamVeil } from './components/dream-ui'
+import { DGlassNavbar, DGlassButton, DBackgroundLayer, DBackgroundSwitcher, DDreamVeil, DBloomVeil } from './components/dream-ui'
 import { useBackground } from './composables/useBackground'
 
-const { currentBg, veilEnabled, veilIntensity, veilParticles } = useBackground()
+const { currentBg, veilEnabled, veilIntensity, veilParticles, bloomEnabled, bloomIntensity } = useBackground()
 
 const navItems = [
   { path: '/', label: '首页' },

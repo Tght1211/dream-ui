@@ -54,6 +54,7 @@ const router = createRouter({
         { path: 'background-layer', component: () => import('../views/docs/BackgroundLayerDoc.vue') },
         { path: 'background-switcher', component: () => import('../views/docs/BackgroundSwitcherDoc.vue') },
         { path: 'dream-veil', component: () => import('../views/docs/DreamVeilDoc.vue') },
+        { path: 'bloom-veil', component: () => import('../views/docs/BloomVeilDoc.vue') },
       ],
     },
     {

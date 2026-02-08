@@ -5,6 +5,14 @@ globs: ["src/**/*.vue", "src/**/*.ts", "src/**/*.scss", "src/**/*.css"]
 
 # Dream UI - Glassmorphism 玻璃拟态设计规范
 
+## 〇、项目概览
+
+- **npm 包名**：`@tght_1211/dream-ui`（已发布至 npm）
+- **版本**：1.0.1+
+- **技术栈**：Vue 3.5+ / TypeScript 5.9+ / Vite 7.x / Sass 1.97+
+- **组件总数**：30+（基础 / 表单 / 数据展示 / 反馈 / 导航 / 特效 六大分类）
+- **核心特性**：玻璃拟态 + 动态背景 + 梦幻蒙版 + 黑柔镜 + 每个组件可自定义透明度/边框色/光晕色
+
 ## 一、设计理念
 
 本项目 UI 风格灵感来源于 AR/VR 空间界面设计，核心特征为 **玻璃拟态 (Glassmorphism)**，即：
@@ -140,21 +148,130 @@ box-shadow:
 --dream-radius-full: 9999px; /* 头像、图标 */
 ```
 
-## 四、排版规范
+## 四、组件自定义系统（useGlassStyle）
 
-### 4.1 字体
+### 4.1 通用自定义 Props
+
+**每个玻璃拟态组件都必须支持以下 3 个可选属性**，通过 `useGlassStyle` composable 统一实现：
+
+```ts
+interface GlassCustomProps {
+  bgOpacity?: number      // 背景透明度 0~1
+  borderColor?: string    // 自定义边框颜色
+  glowColor?: string      // 自定义光晕颜色
+}
+```
+
+### 4.2 实现方式
+
+在组件中使用 `useGlassStyle` composable：
+
+```vue
+<template>
+  <div class="d-glass-xxx" :style="glassVars">
+    <slot />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+
+interface Props extends GlassCustomProps {
+  // 组件自身 props...
+}
+
+const props = defineProps<Props>()
+const { glassVars } = useGlassStyle(props)
+</script>
+
+<style scoped lang="scss">
+.d-glass-xxx {
+  /* 使用 CSS 变量并提供默认值 fallback */
+  background: var(--_glass-bg, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--_glass-border, rgba(255, 255, 255, 0.18));
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.04),
+    0 0 1px 0 var(--_glass-glow, rgba(255, 255, 255, 0.20)),
+    0 0 15px var(--_glass-glow, rgba(255, 255, 255, 0.04)),
+    0 8px 32px rgba(0, 0, 0, 0.25);
+}
+</style>
+```
+
+## 五、浮动内容规范（Teleport + 定位）
+
+### 5.1 问题与方案
+
+Select 下拉、Popover 弹出框等浮动内容会被父容器 `overflow: hidden` 裁剪。
+**必须使用 `<Teleport to="body">` 将浮动内容渲染到 body**，并通过 `getBoundingClientRect()` 动态定位。
+
+### 5.2 浮动内容也必须是玻璃拟态
+
+浮动弹出层（Select dropdown / Popover / Drawer）**禁止使用纯黑背景**，必须同样使用：
+
+```css
+background: rgba(255, 255, 255, 0.06);
+backdrop-filter: blur(40px) saturate(1.1);
+-webkit-backdrop-filter: blur(40px) saturate(1.1);
+```
+
+### 5.3 Z-index 层级体系
+
+```css
+--dream-z-dropdown: 100;   /* Select 下拉、Popover 弹出 */
+--dream-z-sticky: 200;     /* Navbar 导航栏（最高层） */
+--dream-z-modal: 300;      /* Dialog 对话框、Drawer 抽屉 */
+```
+
+**关键规则**：Navbar 必须始终在最高可视层级，Select/Popover 的 z-index 不能超过 Navbar。
+
+## 六、特效组件体系
+
+### 6.1 动态背景（DBackgroundLayer）
+
+提供 18 种内置背景：`neon`（默认）、`liquid`、`aurora`、`lava`、`ocean`、`sunset`、`forest`、`candy`、`midnight`、`warm`、`grid-white`、`grid-dark`、`dots`、`pure-dark`、`pure-blue`、`pure-purple`、`pure-green`、`pure-red`、`pure-white`。
+
+### 6.2 梦幻蒙版（DDreamVeil）
+
+灵感来自日漫/Persona 5 Royal 的白色柔光蒙版。全屏半透明白色覆盖 + 光斑粒子。
+- 3 档强度：`subtle` / `medium` / `strong`
+- 可选光斑粒子 `:particles="true"`
+
+### 6.3 黑柔镜（DBloomVeil）
+
+模拟 Tiffen Black Pro-Mist 滤镜效果，只让亮区产生柔和光晕扩散，暗区不受影响。
+- 原理：`backdrop-filter: blur() brightness()` + `mix-blend-mode: screen`
+- 双层结构：近距高光 glow + 远距柔和 spread
+- 3 档强度：`subtle` / `medium` / `strong`
+
+### 6.4 全局状态管理（useBackground）
+
+所有背景和蒙版通过 `useBackground()` composable 统一管理：
+
+```ts
+const {
+  currentBg, setBg,                           // 背景
+  veilEnabled, toggleVeil, setVeilIntensity,  // 梦幻蒙版
+  veilParticles, toggleVeilParticles,         // 蒙版光斑
+  bloomEnabled, toggleBloom, setBloomIntensity, // 黑柔镜
+} = useBackground()
+```
+
+## 七、排版规范
+
+### 7.1 字体
 
 ```css
 --dream-font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
 ```
 
-### 4.2 字号 / 字重 / 间距
+### 7.2 字号 / 字重 / 间距
 
 参见 `src/styles/variables.scss` 中的完整定义。
 
-## 五、动效规范
+## 八、动效规范
 
-### 5.1 过渡
+### 8.1 过渡
 
 所有交互状态变化**必须**有过渡动画：
 
@@ -164,20 +281,16 @@ box-shadow:
 --dream-transition-slow: 0.35s ease;
 ```
 
-### 5.2 光晕脉冲动画（用于需要吸引注意力的组件）
+### 8.2 光晕脉冲动画（用于需要吸引注意力的组件）
 
 ```css
 @keyframes dream-glow-pulse {
-  0%, 100% {
-    box-shadow: /* 标准光晕 */;
-  }
-  50% {
-    box-shadow: /* 增强光晕，白色发光强度翻倍 */;
-  }
+  0%, 100% { box-shadow: /* 标准光晕 */; }
+  50% { box-shadow: /* 增强光晕，白色发光强度翻倍 */; }
 }
 ```
 
-## 六、页面背景规范
+## 九、页面背景规范
 
 ```css
 body {
@@ -194,19 +307,19 @@ body {
 }
 ```
 
-## 七、组件开发规范
+## 十、组件开发规范
 
-### 7.1 命名规范
+### 10.1 命名规范
 
-- 组件名前缀：`DGlass`，如 `DGlassCard`、`DGlassButton`
-- CSS 类名前缀：`d-glass-`
-- CSS 变量前缀：`--dream-`
+- 组件名前缀：`DGlass`（交互组件）/ `D`（特效组件如 `DBackgroundLayer`、`DDreamVeil`、`DBloomVeil`）
+- CSS 类名前缀：`d-glass-` / `d-bg-` / `d-dream-veil` / `d-bloom-veil`
+- CSS 变量前缀：`--dream-`（全局设计令牌）/ `--_glass-`（组件级自定义变量）
 
-### 7.2 组件结构模板
+### 10.2 组件结构模板
 
 ```vue
 <template>
-  <div :class="['d-glass-xxx']">
+  <div :class="['d-glass-xxx']" :style="glassVars">
     <slot />
   </div>
 </template>
@@ -215,34 +328,89 @@ body {
 /**
  * @description 组件描述
  * @author buchi
- * @since YYYY-MM-DD
+ * @since 2026-02-08
  */
+import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+
 defineOptions({ name: 'DGlassXxx' })
+
+interface Props extends GlassCustomProps {
+  // 组件特有 props
+}
+
+const props = defineProps<Props>()
+const { glassVars } = useGlassStyle(props)
 </script>
 
 <style scoped lang="scss">
 .d-glass-xxx {
   backdrop-filter: blur(24px) saturate(1.1);
   -webkit-backdrop-filter: blur(24px) saturate(1.1);
-  background: var(--dream-bg-primary);
-  border: 1px solid var(--dream-border-default);
+  background: var(--_glass-bg, var(--dream-bg-primary));
+  border: 1px solid var(--_glass-border, var(--dream-border-default));
   border-radius: var(--dream-radius-lg);
   color: var(--dream-text-primary);
   transition: all var(--dream-transition-base);
 
-  /* 核心光晕 */
+  /* 核心光晕 — 使用 --_glass-glow 实现可自定义 */
   box-shadow:
     inset 0 0 20px rgba(255, 255, 255, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 0 1px 0 rgba(255, 255, 255, 0.20),
-    0 0 15px rgba(255, 255, 255, 0.04),
+    0 0 1px 0 var(--_glass-glow, rgba(255, 255, 255, 0.20)),
+    0 0 15px var(--_glass-glow, rgba(255, 255, 255, 0.04)),
     0 0 30px rgba(255, 255, 255, 0.02),
     0 8px 32px rgba(0, 0, 0, 0.25);
 }
 </style>
 ```
 
-## 八、禁止事项
+### 10.3 npm 包相关
+
+- 包名：`@tght_1211/dream-ui`
+- 库入口：`src/lib.ts`
+- 库构建配置：`vite.config.lib.ts`
+- 类型声明配置：`tsconfig.lib.json`
+- 构建命令：`npm run build:lib`
+- 发布命令：`npm publish --access public`
+- 新增组件后必须在 `src/components/dream-ui/index.ts` 和 `src/lib.ts` 中导出
+
+## 十一、完整组件列表
+
+| 分类 | 组件 | 说明 |
+|------|------|------|
+| 基础 | `DGlassButton` | 按钮 — 多变体/尺寸/Loading/Disabled/Outline |
+| | `DGlassCard` | 卡片 — 核心容器，hoverable / glow |
+| | `DGlassPanel` | 面板 — 带标题栏内容面板 |
+| | `DGlassDivider` | 分割线 — 水平/垂直/文字插槽/发光 |
+| 表单 | `DGlassInput` | 输入框 — 标签/清除/错误提示 |
+| | `DGlassTextarea` | 文本域 — 多行输入 |
+| | `DGlassSelect` | 选择器 — 下拉选择（Teleport + 动态定位） |
+| | `DGlassSwitch` | 开关 — 切换控件 |
+| | `DGlassSlider` | 滑块 — 数值滑动选择 |
+| 数据展示 | `DGlassBadge` | 徽章 — 标记 + 圆点指示器 |
+| | `DGlassTag` | 标签 — 多色可关闭标签 |
+| | `DGlassAvatar` | 头像 — 文字/图片头像 + 状态 |
+| | `DGlassProgress` | 进度条 — 多变体 |
+| | `DGlassWidget` | 小组件 — VR 风格数据卡片 |
+| | `DGlassTabs` | 标签页 — 内容切换 |
+| | `DGlassTimeline` | 时间线 — 流程展示 |
+| | `DGlassCollapse` | 折叠面板 — 手风琴模式 |
+| | `DGlassLoading` | 加载 — Ring/Spinner/Skeleton |
+| | `DGlassEmpty` | 空状态 — 无数据展示 |
+| 反馈 | `DGlassAlert` | 警告提示 — 4 种类型 |
+| | `DGlassDialog` | 对话框 — 模态弹窗（Teleport） |
+| | `DGlassDrawer` | 抽屉 — 侧边滑出（Teleport + 独立过渡） |
+| | `DGlassNotification` | 通知 — 消息通知条（Teleport） |
+| | `DGlassTooltip` | 提示 — 悬浮文字提示 |
+| | `DGlassPopover` | 弹出框 — 悬浮内容面板（Teleport + 动态定位） |
+| 导航 | `DGlassNavbar` | 导航栏 — 顶部玻璃导航（z-index: 200） |
+| | `DGlassBreadcrumb` | 面包屑 — 路径导航 |
+| 特效 | `DBackgroundLayer` | 背景层 — 18 种动态/静态背景 |
+| | `DBackgroundSwitcher` | 背景切换器 — 交互式浮窗控制器 |
+| | `DDreamVeil` | 梦幻蒙版 — 日漫/P5R 白色柔光滤镜 |
+| | `DBloomVeil` | 黑柔镜 — 高光扩散滤镜（Black Pro-Mist） |
+
+## 十二、禁止事项
 
 - ❌ 禁止使用纯色不透明背景（背景透明度不能超过 10%）
 - ❌ 禁止省略 backdrop-filter
@@ -254,3 +422,7 @@ defineOptions({ name: 'DGlassXxx' })
 - ❌ 禁止在组件本体上使用彩色（彩色仅用于图标点缀）
 - ❌ 禁止在浅色/白色背景上使用组件
 - ❌ 禁止单层 box-shadow（至少 4 层才能实现正确的光晕效果）
+- ❌ 禁止浮动弹出内容使用纯黑背景（必须 backdrop-filter 玻璃拟态）
+- ❌ 禁止浮动元素 z-index 超过 Navbar（--dream-z-sticky: 200）
+- ❌ 禁止新增组件不支持 GlassCustomProps（bgOpacity / borderColor / glowColor）
+- ❌ 禁止新增组件不在 index.ts 和 lib.ts 中导出

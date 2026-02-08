@@ -88,6 +88,7 @@ const navGroups = [
       { path: 'background-layer', label: 'BackgroundLayer 背景层', tag: 'DBackgroundLayer' },
       { path: 'background-switcher', label: 'BackgroundSwitcher 切换器', tag: 'DBackgroundSwitcher' },
       { path: 'dream-veil', label: 'DreamVeil 梦幻蒙版', tag: 'DDreamVeil' },
+      { path: 'bloom-veil', label: 'BloomVeil 黑柔镜', tag: 'DBloomVeil' },
     ],
   },
 ]

@@ -43,10 +43,11 @@ export { default as DGlassBreadcrumb } from './components/dream-ui/DGlassBreadcr
 export { default as DBackgroundLayer } from './components/dream-ui/DBackgroundLayer.vue'
 export { default as DBackgroundSwitcher } from './components/dream-ui/DBackgroundSwitcher.vue'
 export { default as DDreamVeil } from './components/dream-ui/DDreamVeil.vue'
+export { default as DBloomVeil } from './components/dream-ui/DBloomVeil.vue'
 
 // Composables
 export { useBackground } from './composables/useBackground'
-export type { BgOption, VeilIntensity } from './composables/useBackground'
+export type { BgOption, VeilIntensity, BloomIntensity } from './composables/useBackground'
 export { useGlassStyle } from './composables/useGlassStyle'
 export type { GlassCustomProps } from './composables/useGlassStyle'
 
@@ -81,6 +82,7 @@ import DGlassBreadcrumb from './components/dream-ui/DGlassBreadcrumb.vue'
 import DBackgroundLayer from './components/dream-ui/DBackgroundLayer.vue'
 import DBackgroundSwitcher from './components/dream-ui/DBackgroundSwitcher.vue'
 import DDreamVeil from './components/dream-ui/DDreamVeil.vue'
+import DBloomVeil from './components/dream-ui/DBloomVeil.vue'
 
 const components = [
   DGlassButton, DGlassCard, DGlassPanel, DGlassDivider,
@@ -90,7 +92,8 @@ const components = [
   DGlassDialog, DGlassDrawer, DGlassNotification, DGlassAlert,
   DGlassTooltip, DGlassPopover,
   DGlassNavbar, DGlassBreadcrumb,
-  DBackgroundLayer, DBackgroundSwitcher, DDreamVeil,
+  DBackgroundLayer, DBackgroundSwitcher,   DDreamVeil,
+  DBloomVeil,
 ]
 
 // ========== Vue 插件：app.use(DreamUI) 全局注册所有组件 ==========
