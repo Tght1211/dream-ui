@@ -5,7 +5,8 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   server: {
-    host: '0.0.0.0',  // 监听所有网卡，允许外网访问
+    host: '0.0.0.0',
     port: 9478,
+    allowedHosts: ['dream.hulupet.cn'],
   },
 })
