@@ -71,7 +71,7 @@ const code2 = `<template>
 </template>
 
 <script setup>
-import { useBackground } from 'dream-ui'
+import { useBackground } from '@tght_1211/dream-ui'
 const { setBg, veilEnabled, toggleVeil } = useBackground()
 <\/script>`
 

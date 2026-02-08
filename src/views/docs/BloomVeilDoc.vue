@@ -123,7 +123,7 @@ const code0 = `<template>
 </template>
 
 <script setup>
-import { useBackground } from 'dream-ui'
+import { useBackground } from '@tght_1211/dream-ui'
 const { bloomEnabled, bloomIntensity, setBloomIntensity } = useBackground()
 <\\/script>`
 
@@ -139,11 +139,11 @@ const code1 = `<template>
 </template>
 
 <script setup>
-import { DBackgroundLayer, DBloomVeil } from 'dream-ui'
+import { DBackgroundLayer, DBloomVeil } from '@tght_1211/dream-ui'
 <\\/script>`
 
 const code2 = `<script setup>
-import { useBackground } from 'dream-ui'
+import { useBackground } from '@tght_1211/dream-ui'
 
 const {
   bloomEnabled,    // Ref<boolean> - 黑柔镜开关

@@ -14,7 +14,7 @@
           :class="['demo-bg-item', { 'demo-bg-item--active': currentBg === bg.id }]"
           @click="setBg(bg.id)"
         >
-          <span class="demo-bg-icon">{{ bg.icon }}</span>
+          <span class="demo-bg-dot" :style="{ background: bg.color }" />
           <span class="demo-bg-label">{{ bg.label }}</span>
         </button>
       </div>
@@ -27,7 +27,7 @@
     >
       <div class="demo-bg-tags">
         <span v-for="bg in bgOptions" :key="bg.id" class="demo-bg-tag">
-          {{ bg.icon }} {{ bg.id }}
+          {{ bg.id }}
         </span>
       </div>
     </DemoBlock>
@@ -64,7 +64,7 @@ const code1 = `<template>
 
 <script setup>
 import { ref } from 'vue'
-import { DBackgroundLayer } from 'dream-ui'
+import { DBackgroundLayer } from '@tght_1211/dream-ui'
 
 const currentBg = ref('neon')
 <\/script>`
@@ -113,7 +113,13 @@ const propsRows = [
   }
 }
 
-.demo-bg-icon { font-size: 20px; }
+.demo-bg-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
 .demo-bg-label { white-space: nowrap; }
 .demo-hint { font-size: 12px; color: var(--dream-text-tertiary); margin-top: 12px; }
 

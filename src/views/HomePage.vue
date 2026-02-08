@@ -373,7 +373,7 @@
       <DemoBlock description="点击下方按钮实时切换全局背景" :code="codeBgLayer">
         <div class="demo-row">
           <DGlassButton v-for="bg in previewBgs" :key="bg.id" size="sm" :variant="currentBg === bg.id ? 'primary' : 'ghost'" @click="setBg(bg.id)">
-            {{ bg.icon }} {{ bg.label }}
+            {{ bg.label }}
           </DGlassButton>
         </div>
       </DemoBlock>
@@ -932,7 +932,7 @@ const codeBgLayer = `<template>
 
 <script setup>
 import { ref } from 'vue'
-import { DBackgroundLayer } from 'dream-ui'
+import { DBackgroundLayer } from '@tght_1211/dream-ui'
 
 // 可选值: liquid, aurora, lava, ocean, neon,
 //         sunset, forest, candy, midnight, warm,
@@ -951,8 +951,8 @@ const codeDreamVeil = `<template>
 </template>
 
 <script setup>
-import { DDreamVeil } from 'dream-ui'
-import { useBackground } from 'dream-ui'
+import { DDreamVeil } from '@tght_1211/dream-ui'
+import { useBackground } from '@tght_1211/dream-ui'
 
 const {
   veilEnabled,       // Ref<boolean>

@@ -117,8 +117,8 @@ const code0 = `<template>
 </template>
 
 <script setup>
-import { DDreamVeil } from 'dream-ui'
-import { useBackground } from 'dream-ui'
+import { DDreamVeil } from '@tght_1211/dream-ui'
+import { useBackground } from '@tght_1211/dream-ui'
 
 const {
   veilEnabled,
@@ -137,7 +137,7 @@ const code1 = `<template>
 </template>
 
 <script setup>
-import { DDreamVeil } from 'dream-ui'
+import { DDreamVeil } from '@tght_1211/dream-ui'
 <\/script>`
 
 const code2 = `<template>
@@ -149,7 +149,7 @@ const code2 = `<template>
 </template>
 
 <script setup>
-import { DDreamVeil } from 'dream-ui'
+import { DDreamVeil } from '@tght_1211/dream-ui'
 <\/script>`
 
 const code3 = `// useBackground() 返回的蒙版相关 API

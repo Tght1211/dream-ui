@@ -8,35 +8,36 @@ import { ref } from 'vue'
 export interface BgOption {
   id: string
   label: string
-  icon: string
+  /** 代表色（用于色块预览） */
+  color: string
   /** 背景分类 */
   category: 'animated' | 'gradient' | 'solid' | 'pattern'
 }
 
 export const bgOptions: BgOption[] = [
   // 动态背景
-  { id: 'liquid', label: '液体流动', icon: '🌊', category: 'animated' },
-  { id: 'aurora', label: '极光', icon: '🌌', category: 'animated' },
-  { id: 'lava', label: '熔岩', icon: '🌋', category: 'animated' },
-  { id: 'ocean', label: '深海', icon: '🐋', category: 'animated' },
-  { id: 'neon', label: '霓虹', icon: '💜', category: 'animated' },
+  { id: 'liquid', label: '液体流动', color: '#4f46e5', category: 'animated' },
+  { id: 'aurora', label: '极光', color: '#06b6d4', category: 'animated' },
+  { id: 'lava', label: '熔岩', color: '#dc2626', category: 'animated' },
+  { id: 'ocean', label: '深海', color: '#0e7490', category: 'animated' },
+  { id: 'neon', label: '霓虹', color: '#a855f7', category: 'animated' },
   // 渐变背景
-  { id: 'sunset', label: '日落', icon: '🌅', category: 'gradient' },
-  { id: 'forest', label: '森林', icon: '🌿', category: 'gradient' },
-  { id: 'candy', label: '糖果', icon: '🍬', category: 'gradient' },
-  { id: 'midnight', label: '午夜蓝', icon: '🌙', category: 'gradient' },
-  { id: 'warm', label: '暖阳', icon: '☀️', category: 'gradient' },
-  // 纯色 / 图案
-  { id: 'grid-white', label: '白色网格', icon: '⬜', category: 'pattern' },
-  { id: 'grid-dark', label: '暗色网格', icon: '🔲', category: 'pattern' },
-  { id: 'dots', label: '波点', icon: '⚫', category: 'pattern' },
+  { id: 'sunset', label: '日落', color: '#f97316', category: 'gradient' },
+  { id: 'forest', label: '森林', color: '#16a34a', category: 'gradient' },
+  { id: 'candy', label: '糖果', color: '#ec4899', category: 'gradient' },
+  { id: 'midnight', label: '午夜蓝', color: '#1e3a5f', category: 'gradient' },
+  { id: 'warm', label: '暖阳', color: '#eab308', category: 'gradient' },
+  // 图案
+  { id: 'grid-white', label: '白色网格', color: '#e5e7eb', category: 'pattern' },
+  { id: 'grid-dark', label: '暗色网格', color: '#374151', category: 'pattern' },
+  { id: 'dots', label: '波点', color: '#6b7280', category: 'pattern' },
   // 纯色
-  { id: 'pure-dark', label: '纯黑', icon: '⬛', category: 'solid' },
-  { id: 'pure-blue', label: '纯蓝', icon: '🔵', category: 'solid' },
-  { id: 'pure-purple', label: '纯紫', icon: '🟣', category: 'solid' },
-  { id: 'pure-green', label: '纯绿', icon: '🟢', category: 'solid' },
-  { id: 'pure-red', label: '纯红', icon: '🔴', category: 'solid' },
-  { id: 'pure-white', label: '纯白', icon: '⚪', category: 'solid' },
+  { id: 'pure-dark', label: '纯黑', color: '#111111', category: 'solid' },
+  { id: 'pure-blue', label: '纯蓝', color: '#2563eb', category: 'solid' },
+  { id: 'pure-purple', label: '纯紫', color: '#7c3aed', category: 'solid' },
+  { id: 'pure-green', label: '纯绿', color: '#16a34a', category: 'solid' },
+  { id: 'pure-red', label: '纯红', color: '#dc2626', category: 'solid' },
+  { id: 'pure-white', label: '纯白', color: '#f5f5f5', category: 'solid' },
 ]
 
 export type VeilIntensity = 'subtle' | 'medium' | 'strong'
