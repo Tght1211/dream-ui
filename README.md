@@ -5,6 +5,8 @@
 
 基于 **Vue 3** + **TypeScript** + **Vite** + **SCSS**，提供 30+ 开箱即用的玻璃拟态组件。
 
+**GitHub**：[https://github.com/Tght1211/dream-ui](https://github.com/Tght1211/dream-ui) | **npm**：[@tght_1211/dream-ui](https://www.npmjs.com/package/@tght_1211/dream-ui)
+
 ---
 
 ## 快速开始（3 步上手）

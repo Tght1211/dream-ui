@@ -72,7 +72,7 @@ const lightBgs = ['grid-white', 'pure-white']
 const isLightBg = computed(() => lightBgs.includes(currentBg.value))
 
 const openGitHub = () => {
-  window.open('https://github.com', '_blank')
+  window.open('https://github.com/Tght1211/dream-ui', '_blank')
 }
 </script>
 

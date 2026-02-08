@@ -36,7 +36,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/Tght1211/dream-ui.git"
+  },
+  "homepage": "https://github.com/Tght1211/dream-ui",
+  "bugs": {
+    "url": "https://github.com/Tght1211/dream-ui/issues"
   },
   "scripts": {
     "dev": "vite",
