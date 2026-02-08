@@ -1,0 +1,256 @@
+---
+description: Dream UI - Glassmorphism 玻璃拟态 UI 风格规范，用于指导所有前端组件开发保持一致的视觉风格
+globs: ["src/**/*.vue", "src/**/*.ts", "src/**/*.scss", "src/**/*.css"]
+---
+
+# Dream UI - Glassmorphism 玻璃拟态设计规范
+
+## 一、设计理念
+
+本项目 UI 风格灵感来源于 AR/VR 空间界面设计，核心特征为 **玻璃拟态 (Glassmorphism)**，即：
+
+- **极高透明度毛玻璃背景** — 组件背景几乎全透明（3-7%白色），磨砂玻璃质感
+- **强烈的白色边框光晕** — 边框是核心视觉亮点，白色发光线条，多层 box-shadow
+- **背景模糊穿透** — 透过组件可清晰看到背后内容
+- **柔和的投影与层次** — 通过多层 shadow 营造空间深度感
+- **纯暗色背景 + 纯白色调** — 深黑背景，白色文字和边框，颜色只用于图标点缀
+- **不使用彩色主题** — 组件本体始终是纯白光晕，彩色只出现在图标和状态指示器中
+
+## 二、色彩体系
+
+### 2.1 背景色（极高透明度）
+
+```css
+--dream-bg-primary: rgba(255, 255, 255, 0.04);      /* 主要背景 - 几乎全透明 */
+--dream-bg-secondary: rgba(255, 255, 255, 0.07);     /* 次要背景/悬停态 */
+--dream-bg-elevated: rgba(255, 255, 255, 0.10);      /* 高亮/激活态 */
+--dream-bg-deep: rgba(0, 0, 0, 0.25);                /* 深层背景 */
+--dream-bg-overlay: rgba(0, 0, 0, 0.55);             /* 遮罩层 */
+```
+
+**重要**：背景透明度必须非常低（0.04-0.10），实现真正的"玻璃穿透"感。
+
+### 2.2 文字色
+
+```css
+--dream-text-primary: rgba(255, 255, 255, 0.95);     /* 主文字 */
+--dream-text-secondary: rgba(255, 255, 255, 0.60);   /* 次要文字 */
+--dream-text-tertiary: rgba(255, 255, 255, 0.35);    /* 辅助文字 */
+--dream-text-disabled: rgba(255, 255, 255, 0.20);    /* 禁用文字 */
+```
+
+### 2.3 点缀色（仅用于图标/状态指示器，不用于组件本体）
+
+```css
+--dream-color-primary: #60a5fa;    /* 天蓝 */
+--dream-color-success: #4ade80;    /* 翠绿 */
+--dream-color-warning: #fbbf24;    /* 琥珀 */
+--dream-color-danger: #f87171;     /* 珊瑚红 */
+--dream-color-info: #a78bfa;       /* 薰衣草紫 */
+```
+
+### 2.4 边框色
+
+```css
+--dream-border-default: rgba(255, 255, 255, 0.18);   /* 默认边框 - 比之前更亮 */
+--dream-border-hover: rgba(255, 255, 255, 0.35);     /* 悬停边框 */
+--dream-border-active: rgba(255, 255, 255, 0.50);    /* 激活边框 */
+```
+
+## 三、核心视觉效果（必须遵守）
+
+### 3.1 毛玻璃效果
+
+每个组件容器**必须**包含以下属性：
+
+```css
+backdrop-filter: blur(24px) saturate(1.1);
+-webkit-backdrop-filter: blur(24px) saturate(1.1);
+background: rgba(255, 255, 255, 0.04);  /* 极低透明度 */
+```
+
+blur 值参考：
+- 轻度模糊：`blur(12px)` — 标签、徽章等小型组件
+- 标准模糊：`blur(24px)` — 卡片、面板、Widget
+- 深度模糊：`blur(40px)` — 对话框、下拉菜单
+
+### 3.2 边框光晕效果（核心特征 — 必须多层叠加）
+
+这是本设计系统最关键的视觉特征。参考真实 VR 界面，边框需要有明显的白色"发光线条"感：
+
+```css
+/* 基础边框 */
+border: 1px solid rgba(255, 255, 255, 0.18);
+
+/* 多层白色光晕 — 由内到外 */
+box-shadow:
+  /* 第1层：内部环境光 */
+  inset 0 0 20px rgba(255, 255, 255, 0.04),
+  /* 第2层：顶部边缘高光线 */
+  inset 0 1px 0 rgba(255, 255, 255, 0.12),
+  /* 第3层：外边缘紧贴发光（最关键） */
+  0 0 1px 0 rgba(255, 255, 255, 0.20),
+  /* 第4层：近距离柔和扩散 */
+  0 0 15px rgba(255, 255, 255, 0.04),
+  /* 第5层：远距离朦胧光晕 */
+  0 0 30px rgba(255, 255, 255, 0.02),
+  /* 第6层：底部投影 */
+  0 8px 32px rgba(0, 0, 0, 0.25);
+```
+
+### 3.3 悬停态增强光晕
+
+```css
+&:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 0 30px rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20),
+    0 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 20px rgba(255, 255, 255, 0.08),
+    0 0 50px rgba(255, 255, 255, 0.03),
+    0 12px 40px rgba(0, 0, 0, 0.30);
+  transform: translateY(-2px);
+}
+```
+
+### 3.4 图标专属发光效果
+
+图标使用圆形玻璃容器 + 对应颜色的发光：
+
+```css
+.icon-container {
+  background: rgba(COLOR_RGB, 0.10);
+  border: 1px solid rgba(COLOR_RGB, 0.20);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 10px rgba(COLOR_RGB, 0.05),
+    0 0 1px rgba(COLOR_RGB, 0.20),
+    0 0 12px rgba(COLOR_RGB, 0.08);
+}
+```
+
+### 3.5 圆角规范
+
+```css
+--dream-radius-sm: 8px;      /* 小型组件 */
+--dream-radius-md: 12px;     /* 中型组件 */
+--dream-radius-lg: 16px;     /* 大型组件 */
+--dream-radius-xl: 24px;     /* 对话框 */
+--dream-radius-full: 9999px; /* 头像、图标 */
+```
+
+## 四、排版规范
+
+### 4.1 字体
+
+```css
+--dream-font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+```
+
+### 4.2 字号 / 字重 / 间距
+
+参见 `src/styles/variables.scss` 中的完整定义。
+
+## 五、动效规范
+
+### 5.1 过渡
+
+所有交互状态变化**必须**有过渡动画：
+
+```css
+--dream-transition-fast: 0.15s ease;
+--dream-transition-base: 0.25s ease;
+--dream-transition-slow: 0.35s ease;
+```
+
+### 5.2 光晕脉冲动画（用于需要吸引注意力的组件）
+
+```css
+@keyframes dream-glow-pulse {
+  0%, 100% {
+    box-shadow: /* 标准光晕 */;
+  }
+  50% {
+    box-shadow: /* 增强光晕，白色发光强度翻倍 */;
+  }
+}
+```
+
+## 六、页面背景规范
+
+```css
+body {
+  background: #0a0c10;  /* 纯暗黑色，不要紫色/蓝色渐变 */
+}
+```
+
+可添加极微弱的白色光源装饰：
+
+```css
+.bg-orb {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.03), transparent 60%);
+  filter: blur(120px);
+}
+```
+
+## 七、组件开发规范
+
+### 7.1 命名规范
+
+- 组件名前缀：`DGlass`，如 `DGlassCard`、`DGlassButton`
+- CSS 类名前缀：`d-glass-`
+- CSS 变量前缀：`--dream-`
+
+### 7.2 组件结构模板
+
+```vue
+<template>
+  <div :class="['d-glass-xxx']">
+    <slot />
+  </div>
+</template>
+
+<script setup lang="ts">
+/**
+ * @description 组件描述
+ * @author buchi
+ * @since YYYY-MM-DD
+ */
+defineOptions({ name: 'DGlassXxx' })
+</script>
+
+<style scoped lang="scss">
+.d-glass-xxx {
+  backdrop-filter: blur(24px) saturate(1.1);
+  -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  background: var(--dream-bg-primary);
+  border: 1px solid var(--dream-border-default);
+  border-radius: var(--dream-radius-lg);
+  color: var(--dream-text-primary);
+  transition: all var(--dream-transition-base);
+
+  /* 核心光晕 */
+  box-shadow:
+    inset 0 0 20px rgba(255, 255, 255, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 1px 0 rgba(255, 255, 255, 0.20),
+    0 0 15px rgba(255, 255, 255, 0.04),
+    0 0 30px rgba(255, 255, 255, 0.02),
+    0 8px 32px rgba(0, 0, 0, 0.25);
+}
+</style>
+```
+
+## 八、禁止事项
+
+- ❌ 禁止使用纯色不透明背景（背景透明度不能超过 10%）
+- ❌ 禁止省略 backdrop-filter
+- ❌ 禁止省略多层 box-shadow（边框光晕是核心特征）
+- ❌ 禁止使用尖锐直角（最小圆角 8px）
+- ❌ 禁止省略 hover/focus 状态的光晕增强
+- ❌ 禁止硬编码颜色值，必须使用 CSS 变量
+- ❌ 禁止使用紫色/蓝色渐变作为页面背景
+- ❌ 禁止在组件本体上使用彩色（彩色仅用于图标点缀）
+- ❌ 禁止在浅色/白色背景上使用组件
+- ❌ 禁止单层 box-shadow（至少 4 层才能实现正确的光晕效果）

@@ -1,0 +1,30 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist-lib/types",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": true,
+    "strict": true,
+    "erasableSyntaxOnly": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": [
+    "src/lib.ts",
+    "src/components/dream-ui/**/*.vue",
+    "src/components/dream-ui/**/*.ts",
+    "src/composables/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "dist-lib",
+    "src/views",
+    "src/router",
+    "src/components/site"
+  ]
+}

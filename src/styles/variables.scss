@@ -1,0 +1,107 @@
+/**
+ * Dream UI - CSS 变量定义
+ * 纯白冷色调玻璃拟态，边框光晕为核心视觉
+ * @author buchi
+ * @since 2026-02-08
+ */
+
+:root {
+  /* ========== 背景色（极高透明度） ========== */
+  --dream-bg-primary: rgba(255, 255, 255, 0.04);
+  --dream-bg-secondary: rgba(255, 255, 255, 0.07);
+  --dream-bg-elevated: rgba(255, 255, 255, 0.10);
+  --dream-bg-deep: rgba(0, 0, 0, 0.25);
+  --dream-bg-overlay: rgba(0, 0, 0, 0.55);
+
+  /* ========== 文字色 ========== */
+  --dream-text-primary: rgba(255, 255, 255, 0.95);
+  --dream-text-secondary: rgba(255, 255, 255, 0.60);
+  --dream-text-tertiary: rgba(255, 255, 255, 0.35);
+  --dream-text-disabled: rgba(255, 255, 255, 0.20);
+
+  /* ========== 主题强调色（用于图标/内容点缀，非卡片本体） ========== */
+  --dream-color-primary: #60a5fa;
+  --dream-color-primary-rgb: 96, 165, 250;
+  --dream-color-primary-glow: rgba(96, 165, 250, 0.4);
+
+  --dream-color-success: #4ade80;
+  --dream-color-success-rgb: 74, 222, 128;
+  --dream-color-success-glow: rgba(74, 222, 128, 0.4);
+
+  --dream-color-warning: #fbbf24;
+  --dream-color-warning-rgb: 251, 191, 36;
+  --dream-color-warning-glow: rgba(251, 191, 36, 0.4);
+
+  --dream-color-danger: #f87171;
+  --dream-color-danger-rgb: 248, 113, 113;
+  --dream-color-danger-glow: rgba(248, 113, 113, 0.4);
+
+  --dream-color-info: #a78bfa;
+  --dream-color-info-rgb: 167, 139, 250;
+  --dream-color-info-glow: rgba(167, 139, 250, 0.4);
+
+  /* ========== 边框色（核心 - 更亮的白色边缘） ========== */
+  --dream-border-default: rgba(255, 255, 255, 0.18);
+  --dream-border-hover: rgba(255, 255, 255, 0.35);
+  --dream-border-active: rgba(255, 255, 255, 0.50);
+  --dream-border-glow: rgba(255, 255, 255, 0.08);
+
+  /* ========== 光晕强度参数 ========== */
+  --dream-glow-inset: rgba(255, 255, 255, 0.25);
+  --dream-glow-inset-strong: rgba(255, 255, 255, 0.40);
+  --dream-glow-outer: rgba(255, 255, 255, 0.06);
+  --dream-glow-outer-strong: rgba(255, 255, 255, 0.12);
+  --dream-glow-edge: rgba(255, 255, 255, 0.15);
+  --dream-glow-edge-strong: rgba(255, 255, 255, 0.25);
+
+  /* ========== 圆角 ========== */
+  --dream-radius-sm: 8px;
+  --dream-radius-md: 12px;
+  --dream-radius-lg: 16px;
+  --dream-radius-xl: 24px;
+  --dream-radius-full: 9999px;
+
+  /* ========== 字体 ========== */
+  --dream-font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --dream-font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+
+  /* ========== 字号 ========== */
+  --dream-text-xs: 0.75rem;
+  --dream-text-sm: 0.875rem;
+  --dream-text-base: 1rem;
+  --dream-text-lg: 1.125rem;
+  --dream-text-xl: 1.25rem;
+  --dream-text-2xl: 1.5rem;
+  --dream-text-3xl: 2rem;
+  --dream-text-4xl: 2.5rem;
+
+  /* ========== 字重 ========== */
+  --dream-font-light: 300;
+  --dream-font-regular: 400;
+  --dream-font-medium: 500;
+  --dream-font-semibold: 600;
+  --dream-font-bold: 700;
+
+  /* ========== 间距 ========== */
+  --dream-space-xs: 4px;
+  --dream-space-sm: 8px;
+  --dream-space-md: 12px;
+  --dream-space-lg: 16px;
+  --dream-space-xl: 24px;
+  --dream-space-2xl: 32px;
+  --dream-space-3xl: 48px;
+
+  /* ========== 过渡 ========== */
+  --dream-transition-fast: 0.15s ease;
+  --dream-transition-base: 0.25s ease;
+  --dream-transition-slow: 0.35s ease;
+
+  /* ========== 层级 ========== */
+  --dream-z-base: 1;
+  --dream-z-dropdown: 100;
+  --dream-z-sticky: 200;
+  --dream-z-overlay: 300;
+  --dream-z-modal: 400;
+  --dream-z-popover: 500;
+  --dream-z-notification: 600;
+}

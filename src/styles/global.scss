@@ -1,0 +1,141 @@
+/**
+ * Dream UI - 全局样式
+ * 纯白冷色调玻璃拟态
+ * @author buchi
+ * @since 2026-02-08
+ */
+
+@use './variables.scss';
+
+/* ========== Reset ========== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--dream-font-family);
+  color: var(--dream-text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  background: #000;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--dream-text-primary);
+  text-decoration: none;
+  transition: color var(--dream-transition-fast);
+
+  &:hover {
+    color: var(--dream-text-primary);
+    filter: brightness(1.2);
+  }
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.20);
+  }
+}
+
+/* ========== Animations ========== */
+@keyframes dream-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dream-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@keyframes dream-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dream-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.15),
+      inset 0 0 30px rgba(255, 255, 255, 0.03),
+      0 0 15px rgba(255, 255, 255, 0.04),
+      0 0 40px rgba(255, 255, 255, 0.02),
+      0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.25),
+      inset 0 0 40px rgba(255, 255, 255, 0.05),
+      0 0 25px rgba(255, 255, 255, 0.08),
+      0 0 60px rgba(255, 255, 255, 0.04),
+      0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes dream-border-shimmer {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
