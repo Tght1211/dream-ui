@@ -23,6 +23,7 @@
  */
 import { ref, watch, nextTick, onMounted, onUnmounted, type CSSProperties } from 'vue'
 import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+import { useZIndex } from '../../composables/useZIndex'
 
 defineOptions({ name: 'DGlassPopover' })
 
@@ -41,13 +42,16 @@ const triggerRef = ref<HTMLElement | null>(null)
 const contentRef = ref<HTMLElement | null>(null)
 const popoverStyle = ref<CSSProperties>({})
 
+const { getZIndex } = useZIndex(triggerRef)
+
 const updatePosition = () => {
   if (!triggerRef.value) return
   const rect = triggerRef.value.getBoundingClientRect()
+  const zIndex = getZIndex()
   if (props.placement === 'bottom') {
-    popoverStyle.value = { position: 'fixed', top: `${rect.bottom + 8}px`, left: `${rect.left}px`, zIndex: 100 }
+    popoverStyle.value = { position: 'fixed', top: `${rect.bottom + 8}px`, left: `${rect.left}px`, zIndex }
   } else {
-    popoverStyle.value = { position: 'fixed', bottom: `${window.innerHeight - rect.top + 8}px`, left: `${rect.left}px`, zIndex: 100 }
+    popoverStyle.value = { position: 'fixed', bottom: `${window.innerHeight - rect.top + 8}px`, left: `${rect.left}px`, zIndex }
   }
 }
 
@@ -85,6 +89,7 @@ onUnmounted(() => {
 
 <style lang="scss">
 .d-glass-popover__content {
+  /* z-index 由 useZIndex 动态计算，基于父容器层级叠加 */
   min-width: 200px;
   padding: var(--dream-space-lg);
   backdrop-filter: blur(30px) saturate(1.2);

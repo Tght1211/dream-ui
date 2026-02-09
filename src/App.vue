@@ -1,5 +1,9 @@
 <template>
-  <div id="dream-app" :class="['dream-app', { 'dream-app--light-bg': isLightBg }]">
+  <!-- iframe 内嵌的移动端演示页面：裸布局，不显示导航/背景/页脚 -->
+  <router-view v-if="isBarePage" />
+
+  <!-- 正常页面：完整布局 -->
+  <div v-else id="dream-app" :class="['dream-app', { 'dream-app--light-bg': isLightBg }]">
     <!-- 动态背景层 -->
     <DBackgroundLayer :bg-id="currentBg" />
 
@@ -56,15 +60,21 @@
  * @since 2026-02-08
  */
 import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { DGlassNavbar, DGlassButton, DBackgroundLayer, DBackgroundSwitcher, DDreamVeil, DBloomVeil } from './components/dream-ui'
 import { useBackground } from './composables/useBackground'
 
+const route = useRoute()
 const { currentBg, veilEnabled, veilIntensity, veilParticles, bloomEnabled, bloomIntensity } = useBackground()
+
+/** 裸页面（iframe 嵌入用）— 不显示导航栏、背景层、页脚 */
+const isBarePage = computed(() => route.path.startsWith('/mobile-demo'))
 
 const navItems = [
   { path: '/', label: '首页' },
   { path: '/guide', label: '设计指南' },
   { path: '/components', label: '组件' },
+  { path: '/mobile', label: '移动端' },
 ]
 
 // 浅色背景时需要反转文字颜色

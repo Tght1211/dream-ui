@@ -58,6 +58,16 @@ const router = createRouter({
       ],
     },
     {
+      path: '/mobile',
+      name: 'Mobile',
+      component: () => import('../views/MobilePage.vue'),
+    },
+    {
+      path: '/mobile-demo',
+      name: 'MobileDemo',
+      component: () => import('../views/MobileDemo.vue'),
+    },
+    {
       path: '/guide',
       name: 'Guide',
       component: () => import('../views/GuidePage.vue'),

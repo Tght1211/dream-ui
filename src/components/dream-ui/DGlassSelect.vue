@@ -49,6 +49,7 @@
  */
 import { ref, computed, watch, nextTick, onMounted, onUnmounted, type CSSProperties } from 'vue'
 import { useGlassStyle, type GlassCustomProps } from '../../composables/useGlassStyle'
+import { useZIndex } from '../../composables/useZIndex'
 
 defineOptions({ name: 'DGlassSelect' })
 
@@ -85,6 +86,8 @@ const triggerRef = ref<HTMLElement>()
 const dropdownRef = ref<HTMLElement>()
 const dropdownStyle = ref<CSSProperties>({})
 
+const { getZIndex } = useZIndex(triggerRef)
+
 const selectedLabel = computed(() => {
   const found = props.options.find(o => o.value === props.modelValue)
   return found?.label || ''
@@ -98,7 +101,7 @@ const updateDropdownPosition = () => {
     top: `${rect.bottom + 4}px`,
     left: `${rect.left}px`,
     width: `${rect.width}px`,
-    zIndex: 100,
+    zIndex: getZIndex(),
   }
 }
 
@@ -209,6 +212,7 @@ onUnmounted(() => {
 <!-- 下拉菜单 Teleport 到 body，需要全局样式 -->
 <style lang="scss">
 .d-glass-select__dropdown {
+  /* z-index 由 useZIndex 动态计算，基于父容器层级叠加 */
   backdrop-filter: blur(40px) saturate(1.2);
   -webkit-backdrop-filter: blur(40px) saturate(1.2);
   background: rgba(255, 255, 255, 0.06);

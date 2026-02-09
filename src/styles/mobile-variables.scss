@@ -1,0 +1,90 @@
+/**
+ * Dream UI Mobile - 移动端专属 CSS 变量
+ * 严格遵循 PC 端玻璃拟态设计规范：白色边光、多层光晕、超透明背景
+ * @author buchi
+ * @since 2026-02-09
+ */
+
+:root {
+  /* ========== 安全区域 ========== */
+  --dream-safe-top: env(safe-area-inset-top, 0px);
+  --dream-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --dream-safe-left: env(safe-area-inset-left, 0px);
+  --dream-safe-right: env(safe-area-inset-right, 0px);
+
+  /* ========== 移动端尺寸 ========== */
+  --dream-mobile-navbar-height: 44px;
+  --dream-mobile-tabbar-height: 50px;
+  --dream-mobile-cell-height: 48px;
+  --dream-mobile-action-gap: 8px;
+
+  /* ========== 移动端字号 ========== */
+  --dream-mobile-text-xs: 11px;
+  --dream-mobile-text-sm: 13px;
+  --dream-mobile-text-base: 15px;
+  --dream-mobile-text-lg: 17px;
+  --dream-mobile-text-xl: 20px;
+  --dream-mobile-text-2xl: 24px;
+
+  /* ========== 移动端间距 ========== */
+  --dream-mobile-padding: 16px;
+  --dream-mobile-padding-sm: 12px;
+  --dream-mobile-padding-xs: 8px;
+
+  /* ========== 触摸反馈 ========== */
+  --dream-mobile-active-opacity: 0.7;
+  --dream-mobile-touch-highlight: rgba(255, 255, 255, 0.06);
+
+  /* ========== 移动端动画 ========== */
+  --dream-mobile-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --dream-mobile-transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --dream-mobile-bounce: 0.35s cubic-bezier(0.36, 0.66, 0.04, 1);
+}
+
+/* ========== 移动端动画关键帧 ========== */
+@keyframes dream-mobile-slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes dream-mobile-slide-down {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes dream-mobile-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dream-mobile-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes dream-mobile-notice-scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

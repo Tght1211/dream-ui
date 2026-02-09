@@ -45,11 +45,43 @@ export { default as DBackgroundSwitcher } from './components/dream-ui/DBackgroun
 export { default as DDreamVeil } from './components/dream-ui/DDreamVeil.vue'
 export { default as DBloomVeil } from './components/dream-ui/DBloomVeil.vue'
 
+// ========== 移动端（H5）组件 ==========
+// 导航
+export { default as DMobileNavBar } from './components/dream-mobile/DMobileNavBar.vue'
+export { default as DMobileTabBar } from './components/dream-mobile/DMobileTabBar.vue'
+// 基础
+export { default as DMobileCell } from './components/dream-mobile/DMobileCell.vue'
+export { default as DMobileCellGroup } from './components/dream-mobile/DMobileCellGroup.vue'
+// 操作反馈
+export { default as DMobilePopup } from './components/dream-mobile/DMobilePopup.vue'
+export { default as DMobileActionSheet } from './components/dream-mobile/DMobileActionSheet.vue'
+export { default as DMobileToast } from './components/dream-mobile/DMobileToast.vue'
+export { default as DMobileSwipeCell } from './components/dream-mobile/DMobileSwipeCell.vue'
+// 表单
+export { default as DMobileSearchBar } from './components/dream-mobile/DMobileSearchBar.vue'
+export { default as DMobileStepper } from './components/dream-mobile/DMobileStepper.vue'
+export { default as DMobileNumberKeyboard } from './components/dream-mobile/DMobileNumberKeyboard.vue'
+export { default as DMobilePasswordInput } from './components/dream-mobile/DMobilePasswordInput.vue'
+export { default as DMobilePicker } from './components/dream-mobile/DMobilePicker.vue'
+// 展示
+export { default as DMobileNoticeBar } from './components/dream-mobile/DMobileNoticeBar.vue'
+export { default as DMobileSwipe } from './components/dream-mobile/DMobileSwipe.vue'
+export { default as DMobileCountDown } from './components/dream-mobile/DMobileCountDown.vue'
+export { default as DMobileImagePreview } from './components/dream-mobile/DMobileImagePreview.vue'
+export { default as DMobileSkeleton } from './components/dream-mobile/DMobileSkeleton.vue'
+// 手势交互
+export { default as DMobilePullRefresh } from './components/dream-mobile/DMobilePullRefresh.vue'
+export { default as DMobileBackTop } from './components/dream-mobile/DMobileBackTop.vue'
+export { default as DMobileHorizontalPicker } from './components/dream-mobile/DMobileHorizontalPicker.vue'
+export { default as DMobileGridCard } from './components/dream-mobile/DMobileGridCard.vue'
+
 // Composables
 export { useBackground } from './composables/useBackground'
 export type { BgOption, VeilIntensity, BloomIntensity } from './composables/useBackground'
 export { useGlassStyle } from './composables/useGlassStyle'
 export type { GlassCustomProps } from './composables/useGlassStyle'
+export { useTouchFeedback } from './composables/useTouchFeedback'
+export { useZIndex } from './composables/useZIndex'
 
 // ========== 组件列表（用于全局注册） ==========
 import DGlassButton from './components/dream-ui/DGlassButton.vue'
@@ -84,7 +116,32 @@ import DBackgroundSwitcher from './components/dream-ui/DBackgroundSwitcher.vue'
 import DDreamVeil from './components/dream-ui/DDreamVeil.vue'
 import DBloomVeil from './components/dream-ui/DBloomVeil.vue'
 
+// ========== 移动端组件 import ==========
+import DMobileNavBar from './components/dream-mobile/DMobileNavBar.vue'
+import DMobileTabBar from './components/dream-mobile/DMobileTabBar.vue'
+import DMobileCell from './components/dream-mobile/DMobileCell.vue'
+import DMobileCellGroup from './components/dream-mobile/DMobileCellGroup.vue'
+import DMobilePopup from './components/dream-mobile/DMobilePopup.vue'
+import DMobileActionSheet from './components/dream-mobile/DMobileActionSheet.vue'
+import DMobileToast from './components/dream-mobile/DMobileToast.vue'
+import DMobileSwipeCell from './components/dream-mobile/DMobileSwipeCell.vue'
+import DMobileSearchBar from './components/dream-mobile/DMobileSearchBar.vue'
+import DMobileStepper from './components/dream-mobile/DMobileStepper.vue'
+import DMobileNumberKeyboard from './components/dream-mobile/DMobileNumberKeyboard.vue'
+import DMobilePasswordInput from './components/dream-mobile/DMobilePasswordInput.vue'
+import DMobilePicker from './components/dream-mobile/DMobilePicker.vue'
+import DMobileNoticeBar from './components/dream-mobile/DMobileNoticeBar.vue'
+import DMobileSwipe from './components/dream-mobile/DMobileSwipe.vue'
+import DMobileCountDown from './components/dream-mobile/DMobileCountDown.vue'
+import DMobileImagePreview from './components/dream-mobile/DMobileImagePreview.vue'
+import DMobileSkeleton from './components/dream-mobile/DMobileSkeleton.vue'
+import DMobilePullRefresh from './components/dream-mobile/DMobilePullRefresh.vue'
+import DMobileBackTop from './components/dream-mobile/DMobileBackTop.vue'
+import DMobileHorizontalPicker from './components/dream-mobile/DMobileHorizontalPicker.vue'
+import DMobileGridCard from './components/dream-mobile/DMobileGridCard.vue'
+
 const components = [
+  // PC 端组件
   DGlassButton, DGlassCard, DGlassPanel, DGlassDivider,
   DGlassInput, DGlassTextarea, DGlassSelect, DGlassSwitch, DGlassSlider,
   DGlassBadge, DGlassTag, DGlassAvatar, DGlassProgress, DGlassWidget,
@@ -92,8 +149,14 @@ const components = [
   DGlassDialog, DGlassDrawer, DGlassNotification, DGlassAlert,
   DGlassTooltip, DGlassPopover,
   DGlassNavbar, DGlassBreadcrumb,
-  DBackgroundLayer, DBackgroundSwitcher,   DDreamVeil,
-  DBloomVeil,
+  DBackgroundLayer, DBackgroundSwitcher, DDreamVeil, DBloomVeil,
+  // 移动端（H5）组件
+  DMobileNavBar, DMobileTabBar,
+  DMobileCell, DMobileCellGroup,
+  DMobilePopup, DMobileActionSheet, DMobileToast, DMobileSwipeCell,
+  DMobileSearchBar, DMobileStepper, DMobileNumberKeyboard, DMobilePasswordInput, DMobilePicker,
+  DMobileNoticeBar, DMobileSwipe, DMobileCountDown, DMobileImagePreview, DMobileSkeleton,
+  DMobilePullRefresh, DMobileBackTop, DMobileHorizontalPicker, DMobileGridCard,
 ]
 
 // ========== Vue 插件：app.use(DreamUI) 全局注册所有组件 ==========

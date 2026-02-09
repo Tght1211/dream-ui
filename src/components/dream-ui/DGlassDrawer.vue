@@ -55,7 +55,7 @@ const { glassVars } = useGlassStyle(props)
 
 <style lang="scss">
 .d-glass-drawer-overlay {
-  position: fixed; inset: 0; z-index: 998;
+  position: fixed; inset: 0; z-index: 1000;
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
@@ -64,7 +64,7 @@ const { glassVars } = useGlassStyle(props)
 .drawer-overlay-enter-from, .drawer-overlay-leave-to { opacity: 0; }
 
 .d-glass-drawer {
-  position: fixed; top: 0; bottom: 0; z-index: 999;
+  position: fixed; top: 0; bottom: 0; z-index: 1001;
   display: flex; flex-direction: column;
   backdrop-filter: blur(30px) saturate(1.2);
   -webkit-backdrop-filter: blur(30px) saturate(1.2);
