@@ -72,6 +72,7 @@ const isBarePage = computed(() => route.path.startsWith('/mobile-demo'))
 
 const navItems = [
   { path: '/', label: '首页' },
+  { path: '/quick-start', label: '使用指南' },
   { path: '/guide', label: '设计指南' },
   { path: '/components', label: '组件' },
   { path: '/mobile', label: '移动端' },

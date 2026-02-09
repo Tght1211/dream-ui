@@ -68,6 +68,11 @@ const router = createRouter({
       component: () => import('../views/MobileDemo.vue'),
     },
     {
+      path: '/quick-start',
+      name: 'QuickStart',
+      component: () => import('../views/QuickStartPage.vue'),
+    },
+    {
       path: '/guide',
       name: 'Guide',
       component: () => import('../views/GuidePage.vue'),
