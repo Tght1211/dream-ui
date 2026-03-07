@@ -4,6 +4,8 @@
  * @author buchi
  * @since 2026-02-08
  */
+import './styles/variables.scss'
+import './styles/mobile-variables.scss'
 import type { App, Plugin } from 'vue'
 
 // ========== 按需导出所有组件 ==========

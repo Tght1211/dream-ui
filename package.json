@@ -1,6 +1,6 @@
 {
   "name": "@tght_1211/dream-ui",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "玻璃拟态（Glassmorphism）Vue 3 组件库 — 半透明 · 毛玻璃 · 光晕边框 · 悬浮感",
   "type": "module",
   "main": "./dist-lib/dream-ui.umd.js",

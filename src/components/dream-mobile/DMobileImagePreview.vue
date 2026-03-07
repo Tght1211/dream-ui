@@ -115,13 +115,13 @@ const goTo = (index: number) => {
 
 const onTouchStart = (e: TouchEvent) => {
   dragging.value = true
-  startX = e.touches[0].clientX
+  startX = e.touches[0]!.clientX
   startOffset = trackOffset.value
 }
 
 const onTouchMove = (e: TouchEvent) => {
   if (!dragging.value) return
-  const delta = e.touches[0].clientX - startX
+  const delta = e.touches[0]!.clientX - startX
   trackOffset.value = startOffset + delta
 }
 

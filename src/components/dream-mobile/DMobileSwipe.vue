@@ -117,13 +117,13 @@ const stopAutoplay = () => {
 const onTouchStart = (e: TouchEvent) => {
   stopAutoplay()
   dragging.value = true
-  startX = e.touches[0].clientX
+  startX = e.touches[0]!.clientX
   startOffset = trackOffset.value
 }
 
 const onTouchMove = (e: TouchEvent) => {
   if (!dragging.value) return
-  const deltaX = e.touches[0].clientX - startX
+  const deltaX = e.touches[0]!.clientX - startX
   trackOffset.value = startOffset + deltaX
 }
 

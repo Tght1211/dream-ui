@@ -123,7 +123,7 @@ const checkPosition = () => {
 const onTouchStart = (e: TouchEvent) => {
   if (!isTouchable()) return
   reachTop = checkPosition()
-  startY = e.touches[0].clientY
+  startY = e.touches[0]!.clientY
   dragging.value = true
 }
 
@@ -132,10 +132,10 @@ const onTouchMove = (e: TouchEvent) => {
   if (!reachTop) {
     reachTop = checkPosition()
     if (!reachTop) return
-    startY = e.touches[0].clientY
+    startY = e.touches[0]!.clientY
   }
 
-  const deltaY = e.touches[0].clientY - startY
+  const deltaY = e.touches[0]!.clientY - startY
   if (deltaY <= 0) {
     distance.value = 0
     status.value = 'normal'

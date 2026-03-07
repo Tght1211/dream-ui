@@ -330,7 +330,7 @@ function onTouchStart(e: TouchEvent) {
   if (props.disabled || !trackRef.value || infiniteItems.value.length === 0) return
   stopAnimation()
   isDragging.value = true
-  lastX.value = e.touches[0].clientX
+  lastX.value = e.touches[0]!.clientX
   lastTime.value = Date.now()
   velocityVal.value = 0
   trackRef.value.style.transition = 'none'
@@ -340,7 +340,7 @@ function onTouchMove(e: TouchEvent) {
   if (!isDragging.value) return
   e.preventDefault()
 
-  const x = e.touches[0].clientX
+  const x = e.touches[0]!.clientX
   const dx = x - lastX.value
   const now = Date.now()
   const dt = now - lastTime.value

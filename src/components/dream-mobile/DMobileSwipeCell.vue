@@ -63,7 +63,7 @@ let rightWidth = 0
 const onTouchStart = (e: TouchEvent) => {
   if (props.disabled) return
   dragging.value = true
-  startX = e.touches[0].clientX
+  startX = e.touches[0]!.clientX
   startOffset = offset.value
   leftWidth = leftRef.value?.offsetWidth ?? 0
   rightWidth = rightRef.value?.offsetWidth ?? 0
@@ -71,7 +71,7 @@ const onTouchStart = (e: TouchEvent) => {
 
 const onTouchMove = (e: TouchEvent) => {
   if (!dragging.value || props.disabled) return
-  const deltaX = e.touches[0].clientX - startX
+  const deltaX = e.touches[0]!.clientX - startX
   let newOffset = startOffset + deltaX
 
   // 限制滑动范围

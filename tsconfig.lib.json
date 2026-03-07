@@ -17,6 +17,8 @@
     "src/index.ts",
     "src/components/dream-ui/**/*.vue",
     "src/components/dream-ui/**/*.ts",
+    "src/components/dream-mobile/**/*.vue",
+    "src/components/dream-mobile/**/*.ts",
     "src/composables/**/*.ts"
   ],
   "exclude": [

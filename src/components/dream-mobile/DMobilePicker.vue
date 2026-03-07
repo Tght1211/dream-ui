@@ -142,14 +142,14 @@ let startOffset = 0
 let startTime = 0
 
 const onTouchStart = (colIndex: number, e: TouchEvent) => {
-  startY = e.touches[0].clientY
-  startOffset = offsets.value[colIndex]
+  startY = e.touches[0]!.clientY
+  startOffset = offsets.value[colIndex] ?? 0
   startTime = Date.now()
 }
 
 const onTouchMove = (colIndex: number, e: TouchEvent) => {
   e.preventDefault()
-  const deltaY = e.touches[0].clientY - startY
+  const deltaY = e.touches[0]!.clientY - startY
   const count = normalizedColumns.value[colIndex]?.length ?? 0
   const maxOffset = HALF_COUNT * OPTION_HEIGHT
   const minOffset = -(count - 1 - HALF_COUNT) * OPTION_HEIGHT
@@ -168,7 +168,7 @@ const onTouchMove = (colIndex: number, e: TouchEvent) => {
 const onTouchEnd = (colIndex: number) => {
   const count = normalizedColumns.value[colIndex]?.length ?? 0
   // 吸附到最近的选项
-  let index = HALF_COUNT - Math.round(offsets.value[colIndex] / OPTION_HEIGHT)
+  let index = HALF_COUNT - Math.round((offsets.value[colIndex] ?? 0) / OPTION_HEIGHT)
   index = Math.max(0, Math.min(count - 1, index))
   selectedIndexes.value[colIndex] = index
   offsets.value[colIndex] = (HALF_COUNT - index) * OPTION_HEIGHT
@@ -177,12 +177,12 @@ const onTouchEnd = (colIndex: number) => {
 }
 
 const emitChange = () => {
-  const values = normalizedColumns.value.map((col, i) => col[selectedIndexes.value[i]])
+  const values = normalizedColumns.value.map((col, i) => col[selectedIndexes.value[i] ?? 0]!)
   emit('change', values, [...selectedIndexes.value])
 }
 
 const handleConfirm = () => {
-  const values = normalizedColumns.value.map((col, i) => col[selectedIndexes.value[i]])
+  const values = normalizedColumns.value.map((col, i) => col[selectedIndexes.value[i] ?? 0]!)
   emit('confirm', values, [...selectedIndexes.value])
   emit('update:modelValue', false)
 }
