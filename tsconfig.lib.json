@@ -14,7 +14,7 @@
     }
   },
   "include": [
-    "src/lib.ts",
+    "src/index.ts",
     "src/components/dream-ui/**/*.vue",
     "src/components/dream-ui/**/*.ts",
     "src/composables/**/*.ts"
@@ -22,9 +22,6 @@
   "exclude": [
     "node_modules",
     "dist",
-    "dist-lib",
-    "src/views",
-    "src/router",
-    "src/components/site"
+    "dist-lib"
   ]
 }

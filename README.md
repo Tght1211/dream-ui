@@ -5,7 +5,17 @@
 
 基于 **Vue 3** + **TypeScript** + **Vite** + **SCSS**，提供 30+ 开箱即用的玻璃拟态组件。
 
-**官网**：[https://dream.hulupet.cn](https://dream.hulupet.cn) | **GitHub**：[https://github.com/Tght1211/dream-ui](https://github.com/Tght1211/dream-ui) | **npm**：[@tght_1211/dream-ui](https://www.npmjs.com/package/@tght_1211/dream-ui)
+**官网**：[https://dream.hulupet.cn](https://dream.hulupet.cn) | **npm**：[@tght_1211/dream-ui](https://www.npmjs.com/package/@tght_1211/dream-ui)
+
+---
+
+## 相关项目
+
+| 项目 | 说明 | 地址 |
+|------|------|------|
+| **Dream UI** (本仓库) | 核心组件库 | [GitHub](https://github.com/Tght1211/dream-ui) |
+| **Dream UI Site** | 官方文档站 | [GitHub](https://github.com/Tght1211/dream-ui-site) |
+| **Dream UI Demo** | 演示项目（智能衣柜） | [GitHub](https://github.com/Tght1211/dream-ui-demo) |
 
 ---
 
@@ -43,7 +53,7 @@ app.mount('#app')
 ```vue
 <template>
   <DGlassCard hoverable>
-    <h3>Hello Dream UI ✨</h3>
+    <h3>Hello Dream UI</h3>
     <p>这是一个玻璃拟态卡片</p>
     <DGlassButton variant="primary">点击我</DGlassButton>
   </DGlassCard>
@@ -88,7 +98,7 @@ const handleClick = () => {
 ```bash
 # 1. 在 dream-ui 项目中
 cd dream-ui
-npm run build:lib
+npm run build
 npm link
 
 # 2. 在你的另一个项目中
@@ -237,103 +247,26 @@ SCSS 用户可以直接导入变量：
 
 ---
 
-## 使用示例
+## 项目结构
 
-### Button 按钮
-
-```vue
-<DGlassButton variant="primary">Primary</DGlassButton>
-<DGlassButton variant="success" size="lg">Large</DGlassButton>
-<DGlassButton :loading="true">加载中</DGlassButton>
-<DGlassButton outline>Outline</DGlassButton>
 ```
-
-### Card 卡片
-
-```vue
-<DGlassCard hoverable glow>
-  <template #header>标题</template>
-  <p>内容区域</p>
-  <template #footer>
-    <DGlassButton variant="primary">确认</DGlassButton>
-  </template>
-</DGlassCard>
-```
-
-### Input 输入框
-
-```vue
-<template>
-  <DGlassInput v-model="name" label="姓名" placeholder="请输入" clearable />
-  <DGlassInput label="邮箱" error="格式不正确" />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-const name = ref('')
-</script>
-```
-
-### Dialog 对话框
-
-```vue
-<template>
-  <DGlassButton @click="show = true">打开对话框</DGlassButton>
-  <DGlassDialog v-model="show" title="确认操作">
-    <p>是否继续？</p>
-    <template #footer>
-      <DGlassButton variant="ghost" @click="show = false">取消</DGlassButton>
-      <DGlassButton variant="primary" @click="show = false">确认</DGlassButton>
-    </template>
-  </DGlassDialog>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-const show = ref(false)
-</script>
-```
-
-### Alert 警告
-
-```vue
-<DGlassAlert type="success" title="成功" closable>操作已完成</DGlassAlert>
-<DGlassAlert type="danger" title="错误">请检查输入</DGlassAlert>
-```
-
-### Tabs 标签页
-
-```vue
-<template>
-  <DGlassTabs v-model="tab" :tabs="tabs" />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-const tab = ref('a')
-const tabs = [
-  { key: 'a', label: '选项 A' },
-  { key: 'b', label: '选项 B' },
-]
-</script>
-```
-
-### Tag & Badge
-
-```vue
-<DGlassTag variant="primary" closable>Vue 3</DGlassTag>
-<DGlassTag variant="success">TypeScript</DGlassTag>
-<DGlassBadge variant="danger" dot>消息</DGlassBadge>
-```
-
-### Timeline 时间线
-
-```vue
-<DGlassTimeline :items="[
-  { time: '09:00', title: '项目启动', desc: '确定技术栈', active: true },
-  { time: '10:00', title: '开发组件', desc: '完成 30+ 组件' },
-  { time: '11:00', title: '发布上线', desc: 'npm publish' },
-]" />
+dream-ui/
+├── src/
+│   ├── index.ts               # npm 库入口
+│   ├── components/
+│   │   ├── dream-ui/          # 30+ PC 组件
+│   │   └── dream-mobile/      # 35+ 移动端组件
+│   ├── composables/           # 组合式函数
+│   │   ├── useBackground.ts   # 背景 & 蒙版状态管理
+│   │   ├── useGlassStyle.ts   # 玻璃样式自定义
+│   │   ├── useTouchFeedback.ts
+│   │   └── useZIndex.ts
+│   └── styles/
+│       ├── variables.scss     # CSS 变量（设计令牌）
+│       └── mobile-variables.scss
+├── dist-lib/                  # npm 库构建产出
+├── vite.config.lib.ts         # 库构建配置
+└── package.json
 ```
 
 ---
@@ -359,38 +292,6 @@ dist-lib/
 ├── dream-ui.umd.js      # UMD 模块
 ├── dream-ui.css          # 组件样式
 └── types/                # TypeScript 类型声明
-```
-
----
-
-## 本地开发文档站
-
-```bash
-npm install
-npm run dev          # 启动文档站 http://localhost:9478
-npm run build        # 构建文档站
-```
-
----
-
-## 项目结构
-
-```
-dream-ui/
-├── src/
-│   ├── lib.ts                 # npm 库入口
-│   ├── components/dream-ui/   # 30+ 组件源码
-│   ├── composables/           # 组合式函数
-│   │   ├── useBackground.ts   # 背景 & 蒙版状态管理
-│   │   └── useGlassStyle.ts   # 玻璃样式自定义
-│   ├── styles/
-│   │   ├── variables.scss     # CSS 变量（设计令牌）
-│   │   └── global.scss        # 全局样式
-│   └── views/                 # 文档站页面
-├── dist-lib/                  # npm 库构建产出
-├── vite.config.ts             # 文档站配置
-├── vite.config.lib.ts         # npm 库构建配置
-└── package.json
 ```
 
 ---

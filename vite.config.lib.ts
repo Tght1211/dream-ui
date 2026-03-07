@@ -12,7 +12,7 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/lib.ts'),
+      entry: resolve(__dirname, 'src/index.ts'),
       name: 'DreamUI',
       fileName: (format) => `dream-ui.${format}.js`,
     },
