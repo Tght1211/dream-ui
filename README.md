@@ -102,6 +102,49 @@ body {
 
 ---
 
+## 🤖 AI Coding 支持
+
+Dream UI 提供了专门的 **AI Coding Skill 文件**，让 AI 编程助手（Cursor、GitHub Copilot、Cline、Windsurf 等）在使用 Dream UI 开发时，自动遵循设计规范、正确使用组件和 CSS 变量。
+
+### Skill 文件地址
+
+```
+https://raw.githubusercontent.com/Tght1211/dream-ui/main/AI_CODING_SKILL.md
+```
+
+### 如何使用
+
+**Cursor 用户**：
+
+在对话中直接告诉 AI：
+
+> 请阅读 https://raw.githubusercontent.com/Tght1211/dream-ui/main/AI_CODING_SKILL.md 这个 Skill 文件，然后按照其中的规范来使用 Dream UI 组件库进行开发。
+
+或者将此文件添加为 Cursor Rules：将仓库中的 `.cursor/rules/glassmorphism-ui.mdc` 复制到你项目的 `.cursor/rules/` 目录。
+
+**其他 AI 工具**：
+
+将 Skill 文件的 Raw URL 粘贴给 AI 助手阅读即可。该文件包含：
+
+- 项目初始化模板（main.ts、全局样式、App.vue）
+- 完整组件速查表（Props 和用法）
+- CSS 变量速查（颜色、间距、圆角、过渡等）
+- 自定义业务容器的样式模板
+- 代码示例（页面布局、表单页面）
+- 禁止事项清单（确保样式一致性）
+
+### AI 辅助开发效果
+
+| 场景 | 无 Skill | 有 Skill |
+|------|---------|---------|
+| 背景设置 | 可能遗漏深色背景 | 自动设置 `body { background: #000 }` 和背景组件 |
+| CSS 值 | 硬编码 `color: white` | 使用 `var(--dream-text-primary)` |
+| 容器组件 | 自己写 div + 样式 | 使用 `DGlassCard` / `DGlassPanel` |
+| 悬停效果 | 可能缺少光晕过渡 | 自动添加多层 box-shadow + hover 增强 |
+| 间距/圆角 | 随意数值 | 统一使用 `--dream-space-*` / `--dream-radius-*` |
+
+---
+
 ## 按需导入（可选）
 
 如果你只需要几个组件，可以按需导入以减小打包体积：
